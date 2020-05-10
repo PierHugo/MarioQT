@@ -1,0 +1,28 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-09-30T22:45:53
+#
+#-------------------------------------------------
+
+QT       += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = MarioProject
+TEMPLATE = app
+
+RESOURCES += mario.qrc
+
+
+SOURCES += main.cpp \
+    gameboard.cpp \
+    block.cpp \
+    floor.cpp \
+    mario.cpp \
+    person.cpp
+
+HEADERS  += gameboard.h \
+    block.h \
+    floor.h \
+    mario.h \
+    person.h
