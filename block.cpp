@@ -1,5 +1,6 @@
 #include "block.h"
 #include <iostream>
+#include <QDebug>
 
 Block::Block(int x, int y, QString picture)
 {
@@ -44,3 +45,7 @@ void Block::moveBlock(int x)
     rect.moveTo(x, rect.top());
 }
 
+void Block::move(int x ,int y)
+{
+    rect.moveTo(x, y);
+}

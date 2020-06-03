@@ -5,23 +5,26 @@
 #include <QKeyEvent>
 #include <QMutableMapIterator>
 
+#include "question.h"
+#include "brick.h"
 #include "floor.h"
 #include "mario.h"
 
-
+class Model;
+class View;
 
 class GameBoard : public QWidget
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
 
-    GameBoard(QWidget *parent = 0);
+public:
+    GameBoard(Model *model, QWidget *parent = 0);
     ~GameBoard();
-    QMap<int,Floor*> *floors;
+    inline int getIterBackground(){ return this->iterBackground; }
+    inline void setIterBackground(int iterBackground){ this->iterBackground = iterBackground; }
 
   protected:
-
     void paintEvent(QPaintEvent *event);
     void timerEvent(QTimerEvent *event);
     void keyPressEvent(QKeyEvent *event);
@@ -30,23 +33,31 @@ class GameBoard : public QWidget
     void removeDestroyed();
     void movementMario();
     void movementMap();
+    void movementBackground();
     bool intersect();
+    void splashScreen();
 
 
-  private:
-
+private:
+    Model *model;
     int timerId;
+    bool gameStarted;
+
     int xRelatif;
     int yRelatif;
     int questionCount;
+    int brickCount;
     int moveCount;
     int floorCount;
-
-    bool gameStarted;
     bool moveR;
     bool moveL;
     bool isJumping;
+    bool isSplashScreen;
+    int iterBackground;
+    float currentFrame = 1;
+    int tempMove = 0;
+    char* lastMove = "R";
+    qreal opacity = 1;
 
-    Mario *mario;
 };
 #endif // GAMEBOARD_H

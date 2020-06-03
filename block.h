@@ -17,6 +17,7 @@ class Block
     QRect getRect();
     void setRect(QRect);
     QImage & getImage();
+    void move(int ,int );
     void moveBlock(int );
 
   private:

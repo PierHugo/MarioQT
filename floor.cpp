@@ -9,4 +9,3 @@ Floor::~Floor()
 {
     std::cout << ("Floor deleted\n");
 }
-
