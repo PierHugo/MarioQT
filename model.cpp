@@ -3,6 +3,7 @@
 #include <question.h>
 #include <brick.h>
 #include <floor.h>
+#include <flag.h>
 #include <splashscreen.h>
 #include <QDebug>
 
@@ -11,6 +12,7 @@ Model::Model()
     this->floors = new QMap<int,Floor *>;
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
+    this->flag = new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
     this->splashScreen = new SplashScreen(100, 100);
     this->background = new QMap<int,Background *>;
@@ -36,6 +38,7 @@ Model::~Model() {
     QMap< int,Floor *>::const_iterator i = floors->constBegin();
     QMap< int,Question *>::const_iterator e = questions->constBegin();
     QMap< int,Brick*>::const_iterator r = bricks->constBegin();
+    QMap<int, Flag*>::const_iterator f = flag->constBegin();
 
     while (i != floors->constEnd()) {
         delete i.value();
@@ -49,14 +52,19 @@ Model::~Model() {
         delete  r.value();
         ++r;
     }
+    while (f != flag->constEnd()) {
+        delete f.value();
+        ++f;
+    }
     floors->clear();
     delete floors;
     bricks->clear();
     delete bricks;
     questions->clear();
     delete questions;
+    flag->clear();
+    delete flag;
     delete mario;
     delete splashScreen;
 }
-
 
