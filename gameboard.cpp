@@ -57,20 +57,19 @@ void GameBoard::paintEvent(QPaintEvent *event)
         ++e;
     }
 
-    QRect sourceRectMario = QRect(currentFrame, 1, 57, 68);
+    QRect sourceRect = QRect(currentFrame, 1, 57, 68);
+
+    painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveRSprite(), sourceRect);
     if(moveR){
-        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveRSprite(), sourceRectMario);
+        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveRSprite(), sourceRect);
     }
     else if(moveL){
-        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveLSprite(), sourceRectMario);
+        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveLSprite(), sourceRect);
     }
     else
     {
-        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getStopSprite(), sourceRectMario);
+        painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getStopSprite(), sourceRect);
     }
-
-    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
-    painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getStopSprite(), sourceRectGoomba);
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
     if(isSplashScreen){
