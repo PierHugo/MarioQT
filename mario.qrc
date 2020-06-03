@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/question.png</file>
+        <file>images/floor.png</file>
+        <file>images/splashscreen.png</file>
+        <file>images/heart.png</file>
+        <file>images/background.png</file>
+        <file>images/mario_walk_sprites.png</file>
+        <file>images/mario_walk_sprites_left.png</file>
+        <file>images/mario_stop.png</file>
+        <file>images/brick.png</file>
+    </qresource>
+</RCC>
