@@ -353,6 +353,44 @@ void GameBoard::movementMap()
         qDebug() << "create Question:" << model->getQuestionCount() ;
         model->setQuestionCount();
     }
+    else if(moveCount == 400){
+        x0=700;
+        y0=400;
+        Brick* i =new Brick(x0,y0);
+        model->getBricks()->insert(model->getBrickCount(), i);
+        qDebug() << "create Brick:" << model->getBrickCount() ;
+        model->setBrickCount();
+
+        x0=700;
+        y0=350;
+        Brick* j =new Brick(x0,y0);
+        model->getBricks()->insert(model->getBrickCount(), j);
+        qDebug() << "create Brick:" << model->getBrickCount() ;
+        model->setBrickCount();
+    }
+    else if(moveCount==600){
+        x0=1000;
+        y0=250;
+        Brick* i =new Brick(x0,y0);
+        model->getBricks()->insert(model->getBrickCount(), i);
+        qDebug() << "create Brick:" << model->getBrickCount() ;
+        model->setBrickCount();
+
+        x0=1050;
+        y0=250;
+        Question* l =new Question(x0,y0);
+        model->getQuestions()->insert(model->getQuestionCount(), l);
+        qDebug() << "create Question:" << model->getQuestionCount() ;
+        model->setQuestionCount();
+
+        x0=1100;
+        y0=250;
+        Brick* k =new Brick(x0,y0);
+        model->getBricks()->insert(model->getBrickCount(), k);
+        qDebug() << "create Brick:" << model->getBrickCount() ;
+        model->setBrickCount();
+
+    }
 }
 
 bool GameBoard::intersect()
@@ -378,3 +416,5 @@ void GameBoard::splashScreen(){
     else
         isSplashScreen = false;
 }
+
+
