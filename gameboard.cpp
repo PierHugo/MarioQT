@@ -4,7 +4,7 @@
 #include <QDebug>
 #include "model.h"
 
-
+//sale
 GameBoard::GameBoard(Model *model, QWidget *parent)
     : model(model), QWidget(parent)
 {
