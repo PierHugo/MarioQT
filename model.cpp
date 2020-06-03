@@ -13,7 +13,7 @@ Model::Model()
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
     this->mario = new Mario(100,144);
-    this->goomba = new Goomba(100, 144);
+    this->goomba = new Goomba(550, 415);
     this->splashScreen = new SplashScreen(100, 100);
     this->background = new QMap<int,Background *>;
 
