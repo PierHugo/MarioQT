@@ -7,12 +7,14 @@
 #include <splashscreen.h>
 #include "background.h"
 #include "flag.h"
+#include "castle.h"
 
 class Question;
 class Brick;
 class Floor;
 class Mario;
 class Flag;
+class Castle;
 
 //inline enum Count { MOVE, QUESTION, FLOOR };
 
@@ -28,6 +30,7 @@ public:
     inline QMap<int, Floor*> *getFloors(){ return floors; }
     inline QMap<int, Background*> *getBackground(){ return background; }
     inline QMap<int, Flag*> *getFlag(){return flag;}
+    inline QMap<int, Castle*> *getCastle(){return castle;}
 //    inline QMap<QString, int> *getCount(){ return count; }
     inline int getFloorCount(){ return floorCount; }
     inline void setFloorCount(){ this->floorCount++; }
@@ -39,6 +42,8 @@ public:
     inline void setBackgroundCount(){ this->backgroundCount++; }
     inline int getFlagCount(){return flagCount;}
     inline void setFlagCount(){this->flagCount++;}
+    inline int getCastleCount(){return castleCount;}
+    inline void setCastleCount(){this->castleCount++;}
 
     //inline int  getMoveCount(){ return MoveCount; }
     inline void setMario(Mario *mario){ this->mario = mario; }
@@ -46,6 +51,7 @@ public:
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
     inline void setFlag(QMap<int, Flag*> *flag){this->flag = flag;}
+    inline void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
     int const blockSize = 50;
 
 private:
@@ -53,6 +59,7 @@ private:
     QMap<int, Floor*> *floors;
     QMap<int, Brick*> *bricks;
     QMap<int, Flag*> *flag;
+    QMap<int, Castle*> *castle;
     //QMap<QString, int> *count;
     Mario *mario;
     SplashScreen *splashScreen;
@@ -62,6 +69,7 @@ private:
     int brickCount;
     int backgroundCount;
     int flagCount;
+    int castleCount;
     //int moveCount;
 
     //signals:

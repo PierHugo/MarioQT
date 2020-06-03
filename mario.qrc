@@ -10,5 +10,6 @@
         <file>images/mario_stop.png</file>
         <file>images/brick.png</file>
         <file>images/drapeaufin.png</file>
+        <file>images/castle.png</file>
     </qresource>
 </RCC>

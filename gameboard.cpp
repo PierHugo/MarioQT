@@ -43,6 +43,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
     QMap< int,Question *>::const_iterator e = model->getQuestions()->constBegin();
     QMap< int,Brick*>::const_iterator r = model->getBricks()->constBegin();
     QMap< int,Flag*>::const_iterator n = model->getFlag()->constBegin();
+    QMap< int,Castle*>::const_iterator c = model->getCastle()->constBegin();
 
 
     while (i != model->getFloors()->constEnd()) {
@@ -60,6 +61,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     while (n != model->getFlag()->constEnd()) {
         painter.drawImage(n.value()->getRect(),n.value()->getImage());
         ++n;
+    }
+    while (c != model->getCastle()->constEnd()) {
+        painter.drawImage(c.value()->getRect(),c.value()->getImage());
+        ++c;
     }
 
     QRect sourceRect = QRect(currentFrame, 1, 57, 68);
@@ -315,6 +320,13 @@ void GameBoard::movementMap()
         ++n;
     }
 
+    QMap< int,Castle *>::const_iterator c = model->getCastle()->constBegin();
+    while (c != model->getCastle()->constEnd()) {
+        x0=c.value()->getRect().x();
+        c.value()->moveBlock(x0-4);
+        ++c;
+    }
+
     QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
     while (i0 != model->getFloors()->constEnd()) {
         if(i0.value()->getRect().x() < -model->blockSize){
@@ -482,8 +494,15 @@ void GameBoard::movementMap()
         y0=100;
         Flag* f =new Flag(x0,y0);
         model->getFlag()->insert(model->getFlagCount(), f);
-        qDebug() << "create Flag:" << model->getBrickCount() ;
+        qDebug() << "create Flag:" << model->getFlagCount() ;
         model->setFlagCount();
+
+        x0=1700;
+        y0=118;
+        Castle* c =new Castle(x0,y0);
+        model->getCastle()->insert(model->getCastleCount(), c);
+        qDebug() << "create castle:" << model->getCastleCount() ;
+        model->setCastleCount();
 
 
 

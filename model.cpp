@@ -13,6 +13,7 @@ Model::Model()
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
     this->flag = new QMap<int,Flag*>;
+    this->castle = new QMap<int,Castle*>;
     this->mario = new Mario(100,144);
     this->splashScreen = new SplashScreen(100, 100);
     this->background = new QMap<int,Background *>;
@@ -39,6 +40,7 @@ Model::~Model() {
     QMap< int,Question *>::const_iterator e = questions->constBegin();
     QMap< int,Brick*>::const_iterator r = bricks->constBegin();
     QMap<int, Flag*>::const_iterator f = flag->constBegin();
+    QMap<int, Castle*>::const_iterator c = castle->constBegin();
 
     while (i != floors->constEnd()) {
         delete i.value();
@@ -56,6 +58,11 @@ Model::~Model() {
         delete f.value();
         ++f;
     }
+    while (c != castle->constEnd()) {
+        delete c.value();
+        ++c;
+    }
+
     floors->clear();
     delete floors;
     bricks->clear();
@@ -64,6 +71,8 @@ Model::~Model() {
     delete questions;
     flag->clear();
     delete flag;
+    castle->clear();
+    delete castle;
     delete mario;
     delete splashScreen;
 }
