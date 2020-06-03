@@ -1,4 +1,5 @@
 #include "model.h"
+#include "goomba.h"
 #include <mario.h>
 #include <question.h>
 #include <brick.h>
@@ -12,8 +13,10 @@ Model::Model()
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
     this->mario = new Mario(100,144);
+    this->goomba = new Goomba(100, 144);
     this->splashScreen = new SplashScreen(100, 100);
     this->background = new QMap<int,Background *>;
+
 
     floorCount=0;
 
@@ -57,6 +60,7 @@ Model::~Model() {
     delete questions;
     delete mario;
     delete splashScreen;
+    delete goomba;
 }
 
 

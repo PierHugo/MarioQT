@@ -9,5 +9,6 @@
         <file>images/mario_walk_sprites_left.png</file>
         <file>images/mario_stop.png</file>
         <file>images/brick.png</file>
+        <file>images/goomba-left.png</file>
     </qresource>
 </RCC>

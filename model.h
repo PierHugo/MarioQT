@@ -6,11 +6,13 @@
 #include <QString>
 #include <splashscreen.h>
 #include "background.h"
+#include "goomba.h"
 
 class Question;
 class Brick;
 class Floor;
 class Mario;
+class Goomba;
 
 //inline enum Count { MOVE, QUESTION, FLOOR };
 
@@ -20,6 +22,7 @@ public:
     Model();
     ~Model();
     inline Mario *getMario(){ return mario; }
+    inline Goomba *getGoomba(){ return goomba; }
     SplashScreen *getSplashScreen(){ return splashScreen; }
     inline QMap<int, Question*> *getQuestions(){ return questions; }
     inline QMap<int, Brick*> *getBricks(){ return bricks; }
@@ -36,6 +39,7 @@ public:
     inline void setBackgroundCount(){ this->backgroundCount++; }
     //inline int  getMoveCount(){ return MoveCount; }
     inline void setMario(Mario *mario){ this->mario = mario; }
+    inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
@@ -47,6 +51,7 @@ private:
     QMap<int, Brick*> *bricks;
     //QMap<QString, int> *count;
     Mario *mario;
+    Goomba *goomba;
     SplashScreen *splashScreen;
     QMap<int, Background*> *background;
     int floorCount;
