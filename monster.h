@@ -9,8 +9,9 @@
 class Monster
 {
 public:
-    Monster();
+    Monster(int, int);
     ~Monster();
+
     bool isDead();
     inline void setDead(bool);
     inline QRect getRect(){ return rect; }
@@ -19,8 +20,6 @@ public:
     inline void setDieRect(QRect dieRect){ this->dieRect = dieRect; }
     inline QImage & getImage(){ return image; }
     inline QPixmap getMoveRSprite(){ return moveRSprite; }
-    inline QPixmap getMoveLSprite(){ return moveLSprite; }
-    inline QPixmap getStopSprite(){ return stopSprite; }
     void move(int , int);
     void moveDie(int ,int );
     inline int getLife(){ return life; }
@@ -28,9 +27,6 @@ public:
 
 protected:
     QPixmap moveRSprite;
-    QPixmap moveLSprite;
-    QPixmap stopSprite;
-    QPixmap jumpSprite;
     QRect rect;
     QRect dieRect;
 
@@ -40,3 +36,5 @@ protected:
     bool dead;
     int life = 1;
 };
+
+#endif // MONSTER_H

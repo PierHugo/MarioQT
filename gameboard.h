@@ -32,7 +32,7 @@ public:
     void stopGame();
     void removeDestroyed();
     void movementMario();
-    void generateGoomba();
+    void movementGoomba();
     void movementMap();
     void movementBackground();
     bool intersect();

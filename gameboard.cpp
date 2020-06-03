@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QDebug>
 #include "model.h"
+#include <iostream>
 
 
 GameBoard::GameBoard(Model *model, QWidget *parent)
@@ -70,6 +71,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getStopSprite(), sourceRectMario);
     }
 
+    // Generate Goomba
     QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
     painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveRSprite(), sourceRectGoomba);
 
@@ -89,7 +91,7 @@ void GameBoard::timerEvent(QTimerEvent *event)
 {
     splashScreen();
     movementMario();
-    generateGoomba();
+    movementGoomba();
     removeDestroyed();
     repaint();
 }
@@ -386,11 +388,14 @@ void GameBoard::splashScreen(){
         isSplashScreen = false;
 }
 
-void GameBoard::generateGoomba(){
+void GameBoard::movementGoomba(){
     int y=model->getGoomba()->getRect().y();
     int x=model->getGoomba()->getRect().x();
 
+    model->getGoomba()->move(x-1, y-1);
 
-
-
+    /*while(x>0)
+    {
+        model->getGoomba()->move(x-1,y);
+    }*/
 }
