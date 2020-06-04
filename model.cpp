@@ -81,5 +81,3 @@ Model::~Model() {
     delete gameOver;
     delete won;
 }
-
-

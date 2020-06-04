@@ -666,11 +666,18 @@ bool GameBoard::intersect()
     return false;
 }
 
+<<<<<<< HEAD
 void GameBoard::splashScreen()
 {
     int x=model->getSplashScreen()->getRect().x();
     int y=model->getSplashScreen()->getRect().y();
     y = y - 0.5;
+=======
+void GameBoard::splashScreen(){
+    int x=model->getSplashScreen()->getRect().x();
+    int y=model->getSplashScreen()->getRect().y();
+    y = y - 2;
+>>>>>>> refs/remotes/origin/master
     if(model->getSplashScreen()->getRect().bottom() > 0 && isSplashScreen)
         model->getSplashScreen()->move(x, y);
     else
