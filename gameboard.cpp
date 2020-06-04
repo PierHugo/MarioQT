@@ -15,6 +15,7 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     moveL=false;
     moveR=false;
     isJumping=false;
+    isGoombaSmashed=false;
     xRelatif = -100;
     yRelatif = 0;
     questionCount=0;
@@ -22,7 +23,7 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     spikeCount=0;
     flagCount=0;
     moveCount=0;
-    isSplashScreen = true;
+    isSplashScreen  = true;
     setIterBackground(0);
     isGameOver = false;
     isWon= false;
@@ -78,7 +79,6 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 
     QRect sourceRect = QRect(currentFrame, 1, 57, 68);
-
     if(moveR){
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveRSprite(), sourceRect);
     }
@@ -91,13 +91,18 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 
     // Generate Goomba
-    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
-    painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
+    if( (model->getGoomba()!= NULL) && (model->getGoomba()->getLife() != 0) ){
+        QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
+        painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
+    }
+
+    // Generate WingedGoomba
+    QRect sourceRectWingedGoomba = QRect(currentFrame, 1, 57, 68);
+    painter.drawPixmap(model->getWingedGoomba()->getRect(), model->getWingedGoomba()->getMoveLSprite(), sourceRectWingedGoomba);
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
-            opacity = opacity - 0.0003;
-            // 0.0003
+            opacity = opacity - 0.0006;
             painter.setOpacity(opacity);
             painter.drawImage(model->getSplashScreen()->getRect(), model->getSplashScreen()->getImage());
         }
@@ -124,6 +129,7 @@ void GameBoard::timerEvent(QTimerEvent *event)
     splashScreen();
     movementMario();
     movementGoomba();
+    movementWingedGoomba();
     removeDestroyed();
     repaint();
 }
@@ -249,6 +255,7 @@ void GameBoard::movementMario()
 {
     int y=model->getMario()->getRect().y();
     int x=model->getMario()->getRect().x();
+    int checkGoomba = 0;
     //Count type=move;
     //QList<QString> valuesList = model->getCount().values();
 
@@ -258,13 +265,25 @@ void GameBoard::movementMario()
         yRelatif=(-0.02*(xRelatif*xRelatif)+100);
         y = 300-yRelatif;
 
-
+        if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Goomba Death !";
+            isGoombaSmashed=true;
+            model->getGoomba()->setLife(0);
+            model->deleteGoomba();
+        }
 
         //gagner si on touche le drapeau
         //FIXME : juste le premier est pris en compte
         if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
         {
             gameWon();
+        }
+
+        if(model->getWingedGoomba()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Kill by the WingedGoomba, SHAME again.";
+            gameOver();
         }
 
         //mourir si on touche les piques
@@ -324,6 +343,12 @@ void GameBoard::movementMario()
         yRelatif=0;
         isJumping=false;
 
+        //mourir si on touche le Goomba
+        if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Kill by Goomba, SHAME !";
+            gameOver();
+        }
 
         //gagner si on touche le drapeau
         if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
@@ -455,6 +480,8 @@ void GameBoard::movementMario()
 
 void GameBoard::movementMapRight()
 {
+    movementGoomba();
+    movementWingedGoomba();
     int x0=0;
     int y0=0;
 
@@ -672,6 +699,14 @@ void GameBoard::generateMap()
 //    qDebug() << "create Question:" << model->getQuestionCount() ;
 //    model->setQuestionCount();
 
+    // Generate Goomba
+    Goomba *g2 = new Goomba(551, 415);
+    model->setGoomba(g2);
+
+    // Generate WingedGoomba
+    WingedGoomba *wg1 = new WingedGoomba(1250, 200);
+    model->setWingedGoomba(wg1);
+
 
      int x0=400;
      int y0=250;
@@ -870,7 +905,6 @@ void GameBoard::generateMap()
      model->setSpikeCount();
 
 
-
     x0=4000;
     y0=190;
     Flag* f =new Flag(x0,y0);
@@ -878,14 +912,12 @@ void GameBoard::generateMap()
     qDebug() << "create Flag:" << model->getFlagCount() ;
     model->setFlagCount();
 
-
-    x0 = 4150;
+    x0 += 150;
     y0 = 118;
     Castle *c = new Castle(x0, y0);
     model->getCastle()->insert(model->getCastleCount(), c);
     qDebug() << "create Castle: " << model->getCastleCount();
     model->setCastleCount();
-
 
 }
 
@@ -915,8 +947,21 @@ void GameBoard::splashScreen()
 }
 
 void GameBoard::movementGoomba(){
-    int y=model->getGoomba()->getRect().y();
-    int x=model->getGoomba()->getRect().x();
+    if (!isGoombaSmashed)
+    {
+        int y=model->getGoomba()->getRect().y();
+        int x=model->getGoomba()->getRect().x();
+        model->getGoomba()->move(x-1.25, y);
+    }
+    else
+    {
+        model->getGoomba()->move(0,0);
+    }
+}
 
-    model->getGoomba()->move(x-1, y);
+void GameBoard::movementWingedGoomba(){
+    int x=model->getWingedGoomba()->getRect().x();
+    int y=model->getWingedGoomba()->getRect().y();
+
+    model->getWingedGoomba()->move(x-1.25, y);
 }

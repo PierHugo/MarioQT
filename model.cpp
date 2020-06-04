@@ -20,7 +20,8 @@ Model::Model()
     this->spikes= new QMultiMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
-    this->goomba = new Goomba(550, 415);
+    this->goomba = new Goomba(-50, 0);
+    this->wingedGoomba = new WingedGoomba(-50, 0);
     this->splashScreen = new SplashScreen(50, 100);
     this->gameOver = new GameOver(50, 100);
     this->won = new Won(50, 100);
@@ -91,7 +92,8 @@ Model::~Model() {
     delete castle;
     delete mario;
     delete splashScreen;
-    delete goomba;
+    if(goomba != NULL){ delete goomba; }
+    delete wingedGoomba;
     delete gameOver;
     delete won;
 }

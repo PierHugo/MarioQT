@@ -10,6 +10,7 @@
 #include "background.h"
 #include "castle.h"
 #include "goomba.h"
+#include "wingedgoomba.h"
 
 class Question;
 class Brick;
@@ -19,8 +20,7 @@ class Floor;
 class Mario;
 class Castle;
 class Goomba;
-
-//inline enum Count { MOVE, QUESTION, FLOOR };
+class WingedGoomba;
 
 class Model
 {
@@ -29,6 +29,7 @@ public:
     ~Model();
     inline Mario *getMario(){ return mario; }
     inline Goomba *getGoomba(){ return goomba; }
+    inline WingedGoomba *getWingedGoomba(){ return wingedGoomba; }
 
     SplashScreen *getSplashScreen(){ return splashScreen; }
     GameOver *getGameOver(){ return gameOver; }
@@ -39,6 +40,7 @@ public:
     inline QMap<int, Flag*> *getFlags(){ return flags; }
     inline QMap<int, Floor*> *getFloors(){ return floors; }
     inline QMap<int, Background*> *getBackground(){ return background; }
+
     inline QMap<int, Castle*> *getCastle(){return castle;}
 //    inline QMap<QString, int> *getCount(){ return count; }
     inline int getFloorCount(){ return floorCount; }
@@ -59,6 +61,7 @@ public:
     //inline int  getMoveCount(){ return MoveCount; }
     inline void setMario(Mario *mario){ this->mario = mario; }
     inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
+    inline void setWingedGoomba(WingedGoomba *wingedGoomba) { this->wingedGoomba = wingedGoomba; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     //inline void setBricks(QMultiMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setSpikes(QMultiMap<int, Spike*> *spikes){this->spikes = spikes;}
@@ -66,6 +69,8 @@ public:
     inline void setFlag(QMap<int, Flag*> *flag){this->flags = flag;}
     inline void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
     int const blockSize = 50;
+    void deleteGoomba() { delete this->goomba; }
+    void deleteWingedGoomba() { delete this->wingedGoomba; }
 
 private:
     QMap<int, Question*> *questions;
@@ -74,9 +79,11 @@ private:
     QMap<int, Castle*> *castle;
     QMultiMap<int, Spike*> *spikes;
     QMap<int, Flag*> *flags;
-    //QMap<QString, int> *count;
     Mario *mario;
     Goomba *goomba;
+    WingedGoomba *wingedGoomba;
+
+
     SplashScreen *splashScreen;
     GameOver *gameOver;
     Won *won;
@@ -86,6 +93,7 @@ private:
 //    int brickCount;
     int spikeCount;
     int backgroundCount;
+
     int flagCount;
     int castleCount;
     //int moveCount;
