@@ -43,7 +43,7 @@ public:
     void splashScreen();
     void generateMap();
     void movementGoomba();
-    void movementFlyingThing();
+    void movementWingedGoomba();
 
 
 

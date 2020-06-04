@@ -9,7 +9,7 @@
 #include <won.h>
 #include "background.h"
 #include "goomba.h"
-#include "flyingthing.h"
+#include "wingedgoomba.h"
 
 class Question;
 class Brick;
@@ -18,7 +18,7 @@ class Flag;
 class Floor;
 class Mario;
 class Goomba;
-class FlyingThing;
+class WingedGoomba;
 
 class Model
 {
@@ -27,7 +27,7 @@ public:
     ~Model();
     inline Mario *getMario(){ return mario; }
     inline Goomba *getGoomba(){ return goomba; }
-    inline FlyingThing *getFlyingThing(){ return flyingThing; }
+    inline WingedGoomba *getWingedGoomba(){ return wingedGoomba; }
 
     SplashScreen *getSplashScreen(){ return splashScreen; }
     GameOver *getGameOver(){ return gameOver; }
@@ -52,13 +52,13 @@ public:
     inline void setBackgroundCount(){ this->backgroundCount++; }
     inline void setMario(Mario *mario){ this->mario = mario; }
     inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
-    inline void setFlyingThing(FlyingThing *flyingThing) { this->flyingThing = flyingThing; }
+    inline void setWingedGoomba(WingedGoomba *wingedGoomba) { this->wingedGoomba = wingedGoomba; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
     int const blockSize = 50;
     void deleteGoomba() { delete this->goomba; }
-    void deleteFlyingThing() { delete this->flyingThing; }
+    void deleteWingedGoomba() { delete this->wingedGoomba; }
 
 private:
     QMap<int, Question*> *questions;
@@ -68,7 +68,7 @@ private:
     QMap<int, Flag*> *flags;
     Mario *mario;
     Goomba *goomba;
-    FlyingThing *flyingThing;
+    WingedGoomba *wingedGoomba;
 
 
     SplashScreen *splashScreen;
