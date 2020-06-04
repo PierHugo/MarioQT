@@ -11,5 +11,7 @@
         <file>images/brick.png</file>
         <file>images/gameover.png</file>
         <file>images/won.png</file>
+        <file>images/flag.png</file>
+        <file>images/spike.png</file>
     </qresource>
 </RCC>

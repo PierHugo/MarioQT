@@ -18,6 +18,7 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     yRelatif = 0;
     questionCount=0;
     brickCount=0;
+    spikeCount=0;
     moveCount=0;
     isSplashScreen = true;
     setIterBackground(0);
@@ -44,6 +45,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
     QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
     QMap< int,Question *>::const_iterator e = model->getQuestions()->constBegin();
     QMap< int,Brick*>::const_iterator r = model->getBricks()->constBegin();
+    QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
 
 
     while (i != model->getFloors()->constEnd()) {
@@ -53,6 +55,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     while (r != model->getBricks()->constEnd()) {
         painter.drawImage(r.value()->getRect(),r.value()->getImage());
         ++r;
+    }
+    while (s != model->getSpikes()->constEnd()) {
+        painter.drawImage(s.value()->getRect(),s.value()->getImage());
+        ++s;
     }
     while (e != model->getQuestions()->constEnd()) {
         painter.drawImage(e.value()->getRect(),e.value()->getImage());
@@ -71,7 +77,8 @@ void GameBoard::paintEvent(QPaintEvent *event)
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
-            opacity = opacity - 0.0003;
+            opacity = opacity - 0.03;
+            // 0.0003
             painter.setOpacity(opacity);
             painter.drawImage(model->getSplashScreen()->getRect(), model->getSplashScreen()->getImage());
         }
@@ -143,8 +150,8 @@ void GameBoard::keyReleaseEvent(QKeyEvent *event)
 
 void GameBoard::stopGame()
 {
-        killTimer(timerId);
-        gameStarted = false;
+    killTimer(timerId);
+    gameStarted = false;
 
 }
 
@@ -192,6 +199,14 @@ void GameBoard::removeDestroyed()
             r.remove();
         }
     }
+    QMutableMapIterator<int ,Spike* > s(*model->getSpikes());
+    while (s.hasNext()) {
+        s.next();
+        if (s.value()->isDestroyed() ){
+            qDebug() << "Remove Spikes:" << s.key() ;
+            s.remove();
+        }
+    }
     QMutableMapIterator<int ,Background * > b(*model->getBackground());
     while (b.hasNext()) {
         b.next();
@@ -220,6 +235,12 @@ void GameBoard::movementMario()
         if(!model->getQuestions()->empty() && model->getQuestions()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
         {
             gameWon();
+        }
+
+        //perdre si on touche les piqeyes
+        if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        {
+            gameOver();
         }
 
 
@@ -386,6 +407,14 @@ void GameBoard::movementMapRight()
         ++r;
     }
 
+
+    QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
+    while (s != model->getSpikes()->constEnd()) {
+        x0=s.value()->getRect().x();
+        s.value()->moveBlock(x0-4);
+        ++s;
+    }
+
     QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
     while (i0 != model->getFloors()->constEnd()) {
         if(i0.value()->getRect().x() < -model->blockSize){
@@ -414,35 +443,70 @@ void GameBoard::movementMapRight()
     }
 
     if(moveCount==200){
-        x0=600;
-        y0=250;
-        Brick* i =new Brick(x0,y0);
-        model->getBricks()->insert(model->getBrickCount(), i);
-        qDebug() << "create Brick:" << model->getBrickCount() ;
-        model->setBrickCount();
-
-        x0=650;
-        y0=250;
-        Brick* j =new Brick(x0,y0);
-        model->getBricks()->insert(model->getBrickCount(), j);
-        qDebug() << "create Brick:" << model->getBrickCount() ;
-        model->setBrickCount();
-
-        x0=700;
-        y0=250;
-        Brick* k =new Brick(x0,y0);
-        model->getBricks()->insert(model->getBrickCount(), k);
-        qDebug() << "create Brick:" << model->getBrickCount() ;
-        model->setBrickCount();
-
-        x0=650;
-        y0=150;
-        Question* l =new Question(x0,y0);
-        model->getQuestions()->insert(model->getQuestionCount(), l);
-        qDebug() << "create Question:" << model->getQuestionCount() ;
-        model->setQuestionCount();
+        generateMap();
     }
 }
+
+
+void GameBoard::generateMap()
+{
+    int x0=600;
+    int y0=250;
+    Brick* i =new Brick(x0,y0);
+    model->getBricks()->insert(model->getBrickCount(), i);
+    qDebug() << "create Brick:" << model->getBrickCount() ;
+    model->setBrickCount();
+
+    x0=650;
+    y0=250;
+    Brick* j =new Brick(x0,y0);
+    model->getBricks()->insert(model->getBrickCount(), j);
+    qDebug() << "create Brick:" << model->getBrickCount() ;
+    model->setBrickCount();
+
+    x0=700;
+    y0=250;
+    Brick* k =new Brick(x0,y0);
+    model->getBricks()->insert(model->getBrickCount(), k);
+    qDebug() << "create Brick:" << model->getBrickCount() ;
+    model->setBrickCount();
+
+    x0=650;
+    y0=150;
+    Question* l =new Question(x0,y0);
+    model->getQuestions()->insert(model->getQuestionCount(), l);
+    qDebug() << "create Question:" << model->getQuestionCount() ;
+    model->setQuestionCount();
+
+
+    x0=800;
+    y0=250;
+    Spike* u =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), u);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+    x0=850;
+    y0=250;
+    Spike* v =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), v);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+    x0=900;
+    y0=250;
+    Spike* w =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), w);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+
+
+
+
+
+}
+
 
 void GameBoard::movementMapLeft()
 {
@@ -488,6 +552,14 @@ void GameBoard::movementMapLeft()
         ++r;
     }
 
+
+    QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
+    while (s != model->getSpikes()->constEnd()) {
+        x0=s.value()->getRect().x();
+        s.value()->moveBlock(x0+4);
+        ++s;
+    }
+
     QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
     while (i0 != model->getFloors()->constEnd()) {
         if(i0.value()->getRect().x() < -model->blockSize){
@@ -524,7 +596,6 @@ bool GameBoard::intersect()
     while (i != model->getFloors()->constEnd()) {
         if ((model->getMario()->getRect()).intersects(i.value()->getRect())){
             return true;
-
         }
         ++i;
     }

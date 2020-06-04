@@ -7,6 +7,7 @@
 
 #include "question.h"
 #include "brick.h"
+#include "spike.h"
 #include "floor.h"
 #include "mario.h"
 
@@ -39,6 +40,7 @@ public:
     void movementBackground();
     bool intersect();
     void splashScreen();
+    void generateMap();
 
 
 private:
@@ -50,6 +52,7 @@ private:
     int yRelatif;
     int questionCount;
     int brickCount;
+    int spikeCount;
     int moveCount;
     int floorCount;
     bool moveR;

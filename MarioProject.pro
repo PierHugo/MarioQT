@@ -26,6 +26,7 @@ SOURCES += main.cpp \
     person.cpp \
     model.cpp \
     question.cpp \
+    spike.cpp \
     splashscreen.cpp \
     background.cpp \
     won.cpp
@@ -39,6 +40,7 @@ HEADERS  += gameboard.h \
     person.h \
     model.h \
     question.h \
+    spike.h \
     splashscreen.h \
     background.h \
     won.h

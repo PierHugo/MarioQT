@@ -11,6 +11,7 @@
 
 class Question;
 class Brick;
+class Spike;
 class Floor;
 class Mario;
 
@@ -29,6 +30,7 @@ public:
     Won *getWon(){ return won; }
     inline QMap<int, Question*> *getQuestions(){ return questions; }
     inline QMap<int, Brick*> *getBricks(){ return bricks; }
+    inline QMap<int, Spike*> *getSpikes(){ return spikes; }
     inline QMap<int, Floor*> *getFloors(){ return floors; }
     inline QMap<int, Background*> *getBackground(){ return background; }
 //    inline QMap<QString, int> *getCount(){ return count; }
@@ -38,6 +40,8 @@ public:
     inline void setQuestionCount(){ this->questionCount++; }
     inline int getBrickCount(){ return brickCount; }
     inline void setBrickCount(){ this->brickCount++; }
+    inline int getSpikeCount(){ return brickCount; }
+    inline void setSpikeCount(){ this->brickCount++; }
     inline int getBackgroundCount(){ return backgroundCount; }
     inline void setBackgroundCount(){ this->backgroundCount++; }
     //inline int  getMoveCount(){ return MoveCount; }
@@ -51,6 +55,7 @@ private:
     QMap<int, Question*> *questions;
     QMap<int, Floor*> *floors;
     QMap<int, Brick*> *bricks;
+    QMap<int, Spike*> *spikes;
     //QMap<QString, int> *count;
     Mario *mario;
     Question *question;
@@ -61,6 +66,7 @@ private:
     int floorCount;
     int questionCount;
     int brickCount;
+    int spikeCount;
     int backgroundCount;
     //int moveCount;
 
