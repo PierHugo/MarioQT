@@ -15,6 +15,7 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     moveL=false;
     moveR=false;
     isJumping=false;
+    isGoombaSmashed=false;
     xRelatif = -100;
     yRelatif = 0;
     questionCount=0;
@@ -73,7 +74,6 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 
     QRect sourceRect = QRect(currentFrame, 1, 57, 68);
-
     if(moveR){
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveRSprite(), sourceRect);
     }
@@ -86,8 +86,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 
     // Generate Goomba
-    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
-    painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
+    if( (model->getGoomba()!= NULL) && (model->getGoomba()->getLife() != 0) ){
+        QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
+        painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
+    }
 
     // Generate FlyingThing
     QRect sourceRectFlyingThing = QRect(currentFrame, 1, 57, 68);
@@ -249,6 +251,7 @@ void GameBoard::movementMario()
 {
     int y=model->getMario()->getRect().y();
     int x=model->getMario()->getRect().x();
+    int checkGoomba = 0;
     //Count type=move;
     //QList<QString> valuesList = model->getCount().values();
     if(isJumping)
@@ -257,7 +260,13 @@ void GameBoard::movementMario()
         yRelatif=(-0.02*(xRelatif*xRelatif)+200);
         y = 334-yRelatif;
 
-
+        if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Goomba Death !";
+            isGoombaSmashed=true;
+            model->getGoomba()->setLife(0);
+            model->deleteGoomba();
+        }
 
         //gagner si on touche le drapeau
         //FIXME : juste le premier est pris en compte
@@ -311,6 +320,12 @@ void GameBoard::movementMario()
         yRelatif=0;
         isJumping=false;
 
+        //mourir si on touche le Goomba
+        if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Kill by Goomba, SHAME !";
+            gameOver();
+        }
 
         //gagner si on touche le drapeau
         //FIXME : juste le premier est pris en compte
@@ -632,14 +647,10 @@ void GameBoard::generateMap()
 //    model->getQuestions()->insert(model->getQuestionCount(), l);
 //    qDebug() << "create Question:" << model->getQuestionCount() ;
 //    model->setQuestionCount();
-    // Generate Goomba
 
+    // Generate Goomba
     Goomba *g2 = new Goomba(551, 415);
     model->setGoomba(g2);
-
-    QPainter paint(this);
-    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
-    paint.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
 
 
     int x0=800;
@@ -669,9 +680,6 @@ void GameBoard::generateMap()
     model->getFlags()->insert(model->getFlagCount(), f);
     qDebug() << "create Flag:" << model->getFlagCount() ;
     model->setFlagCount();
-
-
-
 }
 
 bool GameBoard::intersect()
@@ -700,10 +708,16 @@ void GameBoard::splashScreen()
 }
 
 void GameBoard::movementGoomba(){
-    int y=model->getGoomba()->getRect().y();
-    int x=model->getGoomba()->getRect().x();
-
-    model->getGoomba()->move(x-1, y);
+    if (!isGoombaSmashed)
+    {
+        int y=model->getGoomba()->getRect().y();
+        int x=model->getGoomba()->getRect().x();
+        model->getGoomba()->move(x-1, y);
+    }
+    else
+    {
+        model->getGoomba()->move(0,0);
+    }
 }
 
 void GameBoard::movementFlyingThing(){

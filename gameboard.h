@@ -46,6 +46,7 @@ public:
     void movementFlyingThing();
 
 
+
 private:
     Model *model;
     int timerId;
@@ -64,7 +65,8 @@ private:
     bool isJumping;
     bool isSplashScreen;
     bool isGameOver;
-    bool isWon;
+    bool isGoombaSmashed;
+    bool isWon;    
     int iterBackground;
     float currentFrame = 1;
     int tempMove = 0;
