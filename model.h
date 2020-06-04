@@ -26,41 +26,41 @@ class Model
   public:
       Model();
       ~Model();
-      inline Mario *getMario(){ return mario; }
-      inline Goomba *getGoomba(){ return goomba; }
-      inline WingedGoomba *getWingedGoomba(){ return wingedGoomba; }
+        Mario *getMario(){ return mario; }
+        Goomba *getGoomba(){ return goomba; }
+        WingedGoomba *getWingedGoomba(){ return wingedGoomba; }
 
       SplashScreen *getSplashScreen(){ return splashScreen; }
       GameOver *getGameOver(){ return gameOver; }
       Won *getWon(){ return won; }
-      inline QMap<int, Question*> *getQuestions(){ return questions; }
-      inline QMultiMap<int, Spike*> *getSpikes(){ return spikes; }
-      inline QMap<int, Flag*> *getFlags(){ return flags; }
-      inline QMap<int, Floor*> *getFloors(){ return floors; }
-      inline QMap<int, Background*> *getBackground(){ return background; }
+        QMap<int, Question*> *getQuestions(){ return questions; }
+        QMultiMap<int, Spike*> *getSpikes(){ return spikes; }
+        QMap<int, Flag*> *getFlags(){ return flags; }
+        QMap<int, Floor*> *getFloors(){ return floors; }
+        QMap<int, Background*> *getBackground(){ return background; }
 
-      inline QMap<int, Castle*> *getCastle(){return castle;}
-      inline int getFloorCount(){ return floorCount; }
-      inline void setFloorCount(){ this->floorCount++; }
-      inline int getQuestionCount(){ return questionCount; }
-      inline void setQuestionCount(){ this->questionCount++; }
-      inline int getSpikeCount(){ return spikeCount; }
-      inline void setSpikeCount(){ this->spikeCount++; }
-      inline int getFlagCount(){ return flagCount; }
-      inline void setFlagCount(){ this->flagCount++; }
-      inline int getBackgroundCount(){ return backgroundCount; }
-      inline void setBackgroundCount(){ this->backgroundCount++; }
-      inline int getCastleCount(){return castleCount;}
-      inline void setCastleCount(){this->castleCount++;}
+        QMap<int, Castle*> *getCastle(){return castle;}
+        int getFloorCount(){ return floorCount; }
+        void setFloorCount(){ this->floorCount++; }
+        int getQuestionCount(){ return questionCount; }
+        void setQuestionCount(){ this->questionCount++; }
+        int getSpikeCount(){ return spikeCount; }
+        void setSpikeCount(){ this->spikeCount++; }
+        int getFlagCount(){ return flagCount; }
+        void setFlagCount(){ this->flagCount++; }
+        int getBackgroundCount(){ return backgroundCount; }
+        void setBackgroundCount(){ this->backgroundCount++; }
+        int getCastleCount(){return castleCount;}
+        void setCastleCount(){this->castleCount++;}
 
-      inline void setMario(Mario *mario){ this->mario = mario; }
-      inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
-      inline void setWingedGoomba(WingedGoomba *wingedGoomba) { this->wingedGoomba = wingedGoomba; }
-      inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
-      inline void setSpikes(QMultiMap<int, Spike*> *spikes){this->spikes = spikes;}
-      inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
-      inline void setFlag(QMap<int, Flag*> *flag){this->flags = flag;}
-      inline void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
+        void setMario(Mario *mario){ this->mario = mario; }
+        void setGoomba(Goomba *goomba){ this->goomba = goomba; }
+        void setWingedGoomba(WingedGoomba *wingedGoomba) { this->wingedGoomba = wingedGoomba; }
+        void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
+        void setSpikes(QMultiMap<int, Spike*> *spikes){this->spikes = spikes;}
+        void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
+        void setFlag(QMap<int, Flag*> *flag){this->flags = flag;}
+        void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
       int const blockSize = 50;
       void deleteGoomba() { delete this->goomba; }
       void deleteWingedGoomba() { delete this->wingedGoomba; }
