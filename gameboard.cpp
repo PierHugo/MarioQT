@@ -639,7 +639,7 @@ void GameBoard::movementMapRight()
     ++c;
   }
 
-  // Endlees loop to generate floor
+  // Endless loop to generate floor
   QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
   while (i0 != model->getFloors()->constEnd())
   {
@@ -656,7 +656,7 @@ void GameBoard::movementMapRight()
     ++i0;
   }
 
-  // Endlees loop to generate background
+  // Endless loop to generate background
   QMap< int,Background *>::const_iterator b0= model->getBackground()->constBegin();
   while (b0 != model->getBackground()->constEnd())
   {
