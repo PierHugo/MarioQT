@@ -48,6 +48,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
     QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
     QMap< int,Question *>::const_iterator e = model->getQuestions()->constBegin();
     QMap< int,Brick*>::const_iterator r = model->getBricks()->constBegin();
+    QMap< int,Castle*>::const_iterator c = model->getCastle()->constBegin();
     QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
     QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
 
@@ -67,6 +68,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     while (e != model->getQuestions()->constEnd()) {
         painter.drawImage(e.value()->getRect(),e.value()->getImage());
         ++e;
+    }
+    while (c != model->getCastle()->constEnd()) {
+        painter.drawImage(c.value()->getRect(),c.value()->getImage());
+        ++c;
     }
     while (f != model->getFlags()->constEnd()) {
         painter.drawImage(f.value()->getRect(),f.value()->getImage());
@@ -253,11 +258,12 @@ void GameBoard::movementMario()
     int checkGoomba = 0;
     //Count type=move;
     //QList<QString> valuesList = model->getCount().values();
+
     if(isJumping)
     {
         xRelatif+=3;
-        yRelatif=(-0.02*(xRelatif*xRelatif)+200);
-        y = 334-yRelatif;
+        yRelatif=(-0.02*(xRelatif*xRelatif)+100);
+        y = 284-yRelatif;
 
         if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
         {
@@ -490,6 +496,13 @@ void GameBoard::movementMapRight()
     }
 
 
+    QMap< int,Castle *>::const_iterator c = model->getCastle()->constBegin();
+    while (c != model->getCastle()->constEnd()) {
+        x0=c.value()->getRect().x();
+        c.value()->moveBlock(x0-4);
+        ++c;
+    }
+
     QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
     while (s != model->getSpikes()->constEnd()) {
         x0=s.value()->getRect().x();
@@ -534,7 +547,10 @@ void GameBoard::movementMapRight()
     if(moveCount==200){
         generateMap();
     }
+
+
 }
+
 
 void GameBoard::movementMapLeft()
 {
@@ -663,8 +679,180 @@ void GameBoard::generateMap()
     model->setWingedGoomba(wg1);
 
 
-    int x0=800;
-    int y0=250;
+     int x0=500;
+     int y0=250;
+     Brick* i =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=550;
+     y0=250;
+     Brick* j =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=600;
+     y0=250;
+     Brick* k =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), k);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=700;
+     y0=400;
+     Brick* i1 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i1);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=700;
+     y0=350;
+     Brick* j1 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j1);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=700;
+     y0=300;
+     Brick* b =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), b);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=800;
+     y0=250;
+     Brick* i2 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i2);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=850;
+     y0=250;
+     Brick* j2 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j2);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=900;
+     y0=250;
+     Brick* k1 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), k1);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=1000;
+     y0=400;
+     Brick* i3 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i3);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=1000;
+     y0=350;
+     Brick* b1 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), b1);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=1050;
+     y0=400;
+     Brick* j4 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j4);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1050;
+     y0=350;
+     Brick* k2 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), k2);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=1100;
+     y0=250;
+     Brick* i4 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i4);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1150;
+     y0=300;
+     Brick* j5 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j5);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1200;
+     y0=250;
+     Brick* k3 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), k3);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1300;
+     y0=300;
+     Brick* i5 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), i5);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1300;
+     y0=350;
+     Brick* j6 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), j6);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1300;
+     y0=400;
+     Brick* k4 =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), k4);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+     x0=1450;
+     y0=300;
+     Brick* l =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), l);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1450;
+     y0=350;
+     Brick* m =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), m);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+     x0=1450;
+     y0=400;
+     Brick* n =new Brick(x0,y0);
+     model->getBricks()->insert(model->getBrickCount(), n);
+     qDebug() << "create Brick:" << model->getBrickCount() ;
+     model->setBrickCount();
+
+
+
+     x0=1600;
+     y0=250;
+     Question* q =new Question(x0,y0);
+     model->getQuestions()->insert(model->getQuestionCount(), q);
+     qDebug() << "create Question:" << model->getQuestionCount() ;
+     model->setQuestionCount();
+
+
+    x0=800;
+    y0=250;
     Spike* u =new Spike(x0,y0);
     model->getSpikes()->insert(model->getSpikeCount(), u);
     qDebug() << "create Spike:" << model->getSpikeCount() ;
@@ -684,12 +872,21 @@ void GameBoard::generateMap()
     qDebug() << "create Spike:" << model->getSpikeCount() ;
     model->setSpikeCount();
 
-    x0=3000;
+
+    x0=2600;
     y0=190;
     Flag* f =new Flag(x0,y0);
     model->getFlags()->insert(model->getFlagCount(), f);
     qDebug() << "create Flag:" << model->getFlagCount() ;
     model->setFlagCount();
+
+    x0 = 2800;
+    y0 = 118;
+    Castle *c = new Castle(x0, y0);
+    model->getCastle()->insert(model->getCastleCount(), c);
+    qDebug() << "create Castle: " << model->getCastleCount();
+    model->setCastleCount();
+
 }
 
 bool GameBoard::intersect()

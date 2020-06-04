@@ -3,6 +3,7 @@
 
 Flag::Flag(int x, int y ) : Block(x,y, ":images/flag.png")
 {
+  
 }
 
 Flag::~Flag()

@@ -6,6 +6,7 @@
 #include <spike.h>
 #include <flag.h>
 #include <floor.h>
+#include <flag.h>
 #include <splashscreen.h>
 #include <gameover.h>
 #include <QDebug>
@@ -15,6 +16,7 @@ Model::Model()
     this->floors = new QMap<int,Floor *>;
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
+    this->castle = new QMap<int,Castle*>;
     this->spikes= new QMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
@@ -47,6 +49,7 @@ Model::~Model() {
     QMap< int,Floor *>::const_iterator i = floors->constBegin();
     QMap< int,Question *>::const_iterator e = questions->constBegin();
     QMap< int,Brick*>::const_iterator r = bricks->constBegin();
+    QMap<int, Castle*>::const_iterator c = castle->constBegin();
     QMap< int,Spike*>::const_iterator s = spikes->constBegin();
     QMap< int,Flag*>::const_iterator f = flags->constBegin();
 
@@ -62,6 +65,11 @@ Model::~Model() {
         delete  r.value();
         ++r;
     }
+    while (c != castle->constEnd()) {
+        delete c.value();
+        ++c;
+    }
+
     while (s != spikes->constEnd()) {
         delete  s.value();
         ++s;
@@ -80,6 +88,8 @@ Model::~Model() {
     delete flags;
     questions->clear();
     delete questions;
+    castle->clear();
+    delete castle;
     delete mario;
     delete splashScreen;
     if(goomba != NULL){ delete goomba; }
