@@ -36,13 +36,15 @@ public:
     void gameWon();
     void removeDestroyed();
     void movementMario();
-    void movementGoomba();
     void movementMapLeft();
     void movementMapRight();
     void movementBackground();
     bool intersect();
     void splashScreen();
     void generateMap();
+    void movementGoomba();
+    void movementWingedGoomba();
+
 
 
 private:
@@ -63,7 +65,8 @@ private:
     bool isJumping;
     bool isSplashScreen;
     bool isGameOver;
-    bool isWon;
+    bool isGoombaSmashed;
+    bool isWon;    
     int iterBackground;
     float currentFrame = 1;
     int tempMove = 0;

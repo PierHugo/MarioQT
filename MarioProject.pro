@@ -21,6 +21,7 @@ SOURCES += main.cpp \
     brick.cpp \
     castle.cpp \
     flag.cpp \
+    wingedgoomba.cpp \
     gameboard.cpp \
     floor.cpp \
     goomba.cpp \
@@ -41,6 +42,7 @@ HEADERS  += gameboard.h \
     castle.h \
     flag.h \
     floor.h \
+    wingedgoomba.h \
     goomba.h \
     gameover.h \
     mario.h \
