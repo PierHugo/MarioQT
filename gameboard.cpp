@@ -573,7 +573,8 @@ void GameBoard::movementMapRight()
         ++b0;
     }
 
-    if(moveCount==200){
+    if(moveCount==200)
+    {
         generateMap();
     }
 
@@ -671,33 +672,6 @@ void GameBoard::movementMapLeft()
 void GameBoard::generateMap()
 {
 
-//    int x0=600;
-//    int y0=250;
-//    Brick* i =new Brick(x0,y0);
-//    model->getBricks()->insert(model->getBrickCount(), i);
-//    qDebug() << "create Brick:" << model->getBrickCount() ;
-//    model->setBrickCount();
-
-//    x0=650;
-//    y0=250;
-//    Brick* j =new Brick(x0,y0);
-//    model->getBricks()->insert(model->getBrickCount(), j);
-//    qDebug() << "create Brick:" << model->getBrickCount() ;
-//    model->setBrickCount();
-
-//    x0=700;
-//    y0=250;
-//    Brick* k =new Brick(x0,y0);
-//    model->getBricks()->insert(model->getBrickCount(), k);
-//    qDebug() << "create Brick:" << model->getBrickCount() ;
-//    model->setBrickCount();
-
-//    x0=650;
-//    y0=150;
-//    Question* l =new Question(x0,y0);
-//    model->getQuestions()->insert(model->getQuestionCount(), l);
-//    qDebug() << "create Question:" << model->getQuestionCount() ;
-//    model->setQuestionCount();
 
     // Generate Goomba
     Goomba *g2 = new Goomba(551, 415);
