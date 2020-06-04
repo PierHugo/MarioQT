@@ -500,73 +500,6 @@ void GameBoard::movementMapRight()
     }
 }
 
-
-void GameBoard::generateMap()
-{
-    int x0=600;
-    int y0=250;
-    Brick* i =new Brick(x0,y0);
-    model->getBricks()->insert(model->getBrickCount(), i);
-    qDebug() << "create Brick:" << model->getBrickCount() ;
-    model->setBrickCount();
-
-    x0=650;
-    y0=250;
-    Brick* j =new Brick(x0,y0);
-    model->getBricks()->insert(model->getBrickCount(), j);
-    qDebug() << "create Brick:" << model->getBrickCount() ;
-    model->setBrickCount();
-
-    x0=700;
-    y0=250;
-    Brick* k =new Brick(x0,y0);
-    model->getBricks()->insert(model->getBrickCount(), k);
-    qDebug() << "create Brick:" << model->getBrickCount() ;
-    model->setBrickCount();
-
-    x0=650;
-    y0=150;
-    Question* l =new Question(x0,y0);
-    model->getQuestions()->insert(model->getQuestionCount(), l);
-    qDebug() << "create Question:" << model->getQuestionCount() ;
-    model->setQuestionCount();
-
-
-    x0=800;
-    y0=250;
-    Spike* u =new Spike(x0,y0);
-    model->getSpikes()->insert(model->getSpikeCount(), u);
-    qDebug() << "create Spike:" << model->getSpikeCount() ;
-    model->setSpikeCount();
-
-    x0=850;
-    y0=250;
-    Spike* v =new Spike(x0,y0);
-    model->getSpikes()->insert(model->getSpikeCount(), v);
-    qDebug() << "create Spike:" << model->getSpikeCount() ;
-    model->setSpikeCount();
-
-    x0=900;
-    y0=250;
-    Spike* w =new Spike(x0,y0);
-    model->getSpikes()->insert(model->getSpikeCount(), w);
-    qDebug() << "create Spike:" << model->getSpikeCount() ;
-    model->setSpikeCount();
-
-
-
-    x0=1200;
-    y0=190;
-    Flag* f =new Flag(x0,y0);
-    model->getFlags()->insert(model->getFlagCount(), f);
-    qDebug() << "create Flag:" << model->getFlagCount() ;
-    model->setFlagCount();
-
-
-
-}
-
-
 void GameBoard::movementMapLeft()
 {
     int x0=0;
@@ -654,6 +587,71 @@ void GameBoard::movementMapLeft()
     }
 }
 
+void GameBoard::generateMap()
+{
+
+//    int x0=600;
+//    int y0=250;
+//    Brick* i =new Brick(x0,y0);
+//    model->getBricks()->insert(model->getBrickCount(), i);
+//    qDebug() << "create Brick:" << model->getBrickCount() ;
+//    model->setBrickCount();
+
+//    x0=650;
+//    y0=250;
+//    Brick* j =new Brick(x0,y0);
+//    model->getBricks()->insert(model->getBrickCount(), j);
+//    qDebug() << "create Brick:" << model->getBrickCount() ;
+//    model->setBrickCount();
+
+//    x0=700;
+//    y0=250;
+//    Brick* k =new Brick(x0,y0);
+//    model->getBricks()->insert(model->getBrickCount(), k);
+//    qDebug() << "create Brick:" << model->getBrickCount() ;
+//    model->setBrickCount();
+
+//    x0=650;
+//    y0=150;
+//    Question* l =new Question(x0,y0);
+//    model->getQuestions()->insert(model->getQuestionCount(), l);
+//    qDebug() << "create Question:" << model->getQuestionCount() ;
+//    model->setQuestionCount();
+
+
+    int x0=800;
+    int y0=250;
+    Spike* u =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), u);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+    x0=850;
+    y0=250;
+    Spike* v =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), v);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+    x0=900;
+    y0=250;
+    Spike* w =new Spike(x0,y0);
+    model->getSpikes()->insert(model->getSpikeCount(), w);
+    qDebug() << "create Spike:" << model->getSpikeCount() ;
+    model->setSpikeCount();
+
+
+
+    x0=2000;
+    y0=190;
+    Flag* f =new Flag(x0,y0);
+    model->getFlags()->insert(model->getFlagCount(), f);
+    qDebug() << "create Flag:" << model->getFlagCount() ;
+    model->setFlagCount();
+
+
+
+}
 
 bool GameBoard::intersect()
 {
