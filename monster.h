@@ -13,17 +13,17 @@ class Monster
     ~Monster();
 
     bool isDead();
-    inline void setDead(bool);
-    inline QRect getRect(){ return rect; }
-    inline void setRect(QRect rect){ this->rect = rect; }
-    inline QRect getDieRect(){ return dieRect; }
-    inline void setDieRect(QRect dieRect){ this->dieRect = dieRect; }
-    inline QImage & getImage(){ return image; }
-    inline QPixmap getMoveLSprite(){ return moveLSprite; }
+      void setDead(bool);
+      QRect getRect(){ return rect; }
+      void setRect(QRect rect){ this->rect = rect; }
+      QRect getDieRect(){ return dieRect; }
+      void setDieRect(QRect dieRect){ this->dieRect = dieRect; }
+      QImage & getImage(){ return image; }
+      QPixmap getMoveLSprite(){ return moveLSprite; }
     void move(int , int);
     void moveDie(int ,int );
-    inline int getLife(){ return life; }
-    inline void setLife(int life){ this->life = life; }
+      int getLife(){ return life; }
+      void setLife(int life){ this->life = life; }
 
   protected:
     QPixmap moveLSprite;

@@ -21,8 +21,8 @@ class GameBoard : public QWidget
 public:
     GameBoard(Model *model, QWidget *parent = 0);
     ~GameBoard();
-    inline int getIterBackground(){ return this->iterBackground; }
-    inline void setIterBackground(int iterBackground){ this->iterBackground = iterBackground; }
+      int getIterBackground(){ return this->iterBackground; }
+      void setIterBackground(int iterBackground){ this->iterBackground = iterBackground; }
 
   protected:
     void paintEvent(QPaintEvent *event);
