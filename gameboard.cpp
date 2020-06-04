@@ -102,7 +102,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
-            opacity = opacity - 0.0006;
+            opacity = opacity - 0.0004;
             painter.setOpacity(opacity);
             painter.drawImage(model->getSplashScreen()->getRect(), model->getSplashScreen()->getImage());
         }
@@ -672,226 +672,323 @@ void GameBoard::movementMapLeft()
 void GameBoard::generateMap()
 {
 
+  // Generate Goomba
+  Goomba *g2 = new Goomba(551, 415);
+  model->setGoomba(g2);
 
-    // Generate Goomba
-    Goomba *g2 = new Goomba(551, 415);
-    model->setGoomba(g2);
+  // Generate WingedGoomba
+  WingedGoomba *wg1 = new WingedGoomba(1250, 200);
+  model->setWingedGoomba(wg1);
 
-    // Generate WingedGoomba
-    WingedGoomba *wg1 = new WingedGoomba(1250, 200);
-    model->setWingedGoomba(wg1);
+  //3 premiers blocs
 
+   int x0=600;
+   int y0=250;
+   Spike* spike =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     int x0=400;
-     int y0=250;
-     Spike* i =new Spike(x0,y0);
-     model->getSpikes()->insert(1, i);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0+=50;
+   y0=250;
+   Spike* spike2 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike2);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     x0+=50;
-     y0=250;
-     Spike* j =new Spike(x0,y0);
-     model->getSpikes()->insert(1, j);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=250;
-     Spike* k =new Spike(x0,y0);
-     model->getSpikes()->insert(1, k);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-
-     x0=650;
-     y0=400;
-     Spike* i1 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, i1);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-     y0=350;
-     Spike* j1 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, j1);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-     x0=850;
-     y0=250;
-     Spike* u =new Spike(x0,y0);
-     model->getSpikes()->insert(1, u);
-     qDebug() << "create Spike:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=250;
-     Spike* v =new Spike(x0,y0);
-     model->getSpikes()->insert(1, v);
-     qDebug() << "create Spike:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=250;
-     Spike* w =new Spike(x0,y0);
-     model->getSpikes()->insert(1, w);
-     qDebug() << "create Spike:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0+=50;
+   y0=250;
+   Spike* spike3 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike3);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
 
-     x0=1100;
-     y0=400;
-     Spike* i3 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, i3);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   //tour de 2
+
+   x0=850;
+   y0=400;
+   Spike* spike4 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike4);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
+
+   y0=350;
+   Spike* spike5 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike5);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
+
+   //3 blocs en ligne
+
+   x0=1050;
+   y0=250;
+   Spike* spike6 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike6);
+   qDebug() << "create Spike:" << model->getSpikeCount() ;
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=250;
+   Spike* spike7 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike7);
+   qDebug() << "create Spike:" << model->getSpikeCount() ;
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=250;
+   Spike* spike8 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike8);
+   qDebug() << "create Spike:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
 
-     y0=350;
-     Spike* b1 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, b1);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   //cube en L inversé
+
+   x0=1300;
+   y0=400;
+   Spike* spike9 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike9);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
 
-     x0=1150;
-     y0=400;
-     Spike* j4 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, j4);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0=1350;
+   y0=400;
+   Spike* spike10 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike10);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     y0=350;
-     Spike* k2 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, k2);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   y0=350;
+   Spike* spike11 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike11);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
+   //cube en V
 
-     x0=1300;
-     y0=250;
-     Spike* i4 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, i4);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0=1500;
+   y0=250;
+   Spike* spike12 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike12);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     x0+=50;
-     y0=300;
-     Spike* j5 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, j5);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0+=50;
+   y0=300;
+   Spike* spike13 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike13);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     x0+=50;
-     y0=250;
-     Spike* k3 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, k3);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0+=50;
+   y0=250;
+   Spike* spike14 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike14);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     x0=1550;
-     y0=300;
-     Spike* i5 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, i5);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   //2 tours
 
-     y0=350;
-     Spike* j6 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, j6);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0=1750;
+   y0=350;
+   Spike* spike15 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike15);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     y0=400;
-     Spike* k4 =new Spike(x0,y0);
-     model->getSpikes()->insert(1, k4);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   y0=400;
+   Spike* spike16 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike16);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
 
-     x0=1700;
-     y0=300;
-     Spike* l =new Spike(x0,y0);
-     model->getSpikes()->insert(1, l);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   x0=1900;
+   y0=300;
+   Spike* spike17 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike17);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     y0=350;
-     Spike* m =new Spike(x0,y0);
-     model->getSpikes()->insert(1, m);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
+   y0=350;
+   Spike* spike18 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike18);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
-     y0=400;
-     Spike* n =new Spike(x0,y0);
-     model->getSpikes()->insert(1, n);
-     qDebug() << "create Brick:" << model->getSpikeCount() ;
-     model->setSpikeCount();
-
-
-
-     x0=1850;
-     y0=250;
-     Question* q =new Question(x0,y0);
-     model->getQuestions()->insert(model->getQuestionCount(), q);
-     qDebug() << "create Question:" << model->getQuestionCount() ;
-     model->setQuestionCount();
-
-     x0=2000;
-     y0=180;
-     Spike* bb = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=130;
-     Spike* bb1 = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb1);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=130;
-     Spike* bb2 = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb2);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
-
-     y0=400;
-     Spike* bb2floor = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb2floor);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=130;
-     Spike* bb3 = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb3);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
-
-     x0+=50;
-     y0=180;
-     Spike* bb4 = new Spike(x0, y0);
-     model->getSpikes()->insert(1, bb4);
-     qDebug() << "create Brick:" << model->getSpikeCount();
-     model->setSpikeCount();
+   y0=400;
+   Spike* spike19 =new Spike(x0,y0);
+   model->getSpikes()->insert(1, spike19);
+   qDebug() << "create Brick:" << model->getSpikeCount() ;
+   model->setSpikeCount();
 
 
-    x0=4000;
-    y0=190;
-    Flag* f =new Flag(x0,y0);
-    model->getFlags()->insert(model->getFlagCount(), f);
-    qDebug() << "create Flag:" << model->getFlagCount() ;
-    model->setFlagCount();
+   //cube question
 
-    x0 += 150;
-    y0 = 118;
-    Castle *c = new Castle(x0, y0);
-    model->getCastle()->insert(model->getCastleCount(), c);
-    qDebug() << "create Castle: " << model->getCastleCount();
-    model->setCastleCount();
+   x0=2050;
+   y0=250;
+   Question* q =new Question(x0,y0);
+   model->getQuestions()->insert(model->getQuestionCount(), q);
+   qDebug() << "create Question:" << model->getQuestionCount() ;
+   model->setQuestionCount();
+
+   //cube "parachute"
+
+   x0=2200;
+   y0=180;
+   Spike* spike20 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike20);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=130;
+   Spike* spike21 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike21);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=130;
+   Spike* spike22 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike22);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   y0=400;
+   Spike* spike23 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike23);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=130;
+   Spike* spike24 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike24);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=180;
+   Spike* spike25 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike25);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   //Diagonale de 2
+
+   x0=2550;
+   y0=280;
+   Spike* spike26 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike26);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=50;
+   y0=330;
+   Spike* spike27 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike27);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+
+   //2 cubes solos
+
+   x0=2750;
+   y0=400;
+   Spike* spike28 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike28);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=100;
+   y0=400;
+   Spike* spike29 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike29);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+
+   //passage sur-élevé
+
+   x0=3100;
+   y0=400;
+   Spike* spike30 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike30);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   y0=350;
+   Spike* spike31 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike31);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   y0=150;
+   Spike* spike32 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike32);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   y0=100;
+   Spike* spike33 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike33);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+
+   y0=50;
+   Spike* spike34 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike34);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+
+   //petit enchainement de sauts
+
+   x0=3300;
+   y0=400;
+   Spike* spike35 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike35);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=150;
+   y0=400;
+   Spike* spike36 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike36);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+   x0+=150;
+   y0=400;
+   Spike* spike37 = new Spike(x0, y0);
+   model->getSpikes()->insert(1, spike37);
+   qDebug() << "create Brick:" << model->getSpikeCount();
+   model->setSpikeCount();
+
+
+
+   //Drapeau
+
+
+   x0=4000;
+   y0=190;
+   Flag* flag =new Flag(x0,y0);
+   model->getFlags()->insert(model->getFlagCount(), flag);
+   qDebug() << "create Flag:" << model->getFlagCount() ;
+   model->setFlagCount();
+
+   //Chateau
+
+   x0 += 150;
+   y0 = 118;
+   Castle* castle = new Castle(x0, y0);
+   model->getCastle()->insert(model->getCastleCount(), castle);
+   qDebug() << "create Castle: " << model->getCastleCount();
+   model->setCastleCount();
 
 }
 
