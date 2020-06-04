@@ -8,6 +8,7 @@
 #include <gameover.h>
 #include <won.h>
 #include "background.h"
+#include "goomba.h"
 
 class Question;
 class Brick;
@@ -15,6 +16,7 @@ class Spike;
 class Flag;
 class Floor;
 class Mario;
+class Goomba;
 
 //inline enum Count { MOVE, QUESTION, FLOOR };
 
@@ -24,6 +26,7 @@ public:
     Model();
     ~Model();
     inline Mario *getMario(){ return mario; }
+    inline Goomba *getGoomba(){ return goomba; }
 
     SplashScreen *getSplashScreen(){ return splashScreen; }
     GameOver *getGameOver(){ return gameOver; }
@@ -49,6 +52,7 @@ public:
     inline void setBackgroundCount(){ this->backgroundCount++; }
     //inline int  getMoveCount(){ return MoveCount; }
     inline void setMario(Mario *mario){ this->mario = mario; }
+    inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
@@ -62,6 +66,7 @@ private:
     QMap<int, Flag*> *flags;
     //QMap<QString, int> *count;
     Mario *mario;
+    Goomba *goomba;
     SplashScreen *splashScreen;
     GameOver *gameOver;
     Won *won;

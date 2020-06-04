@@ -36,6 +36,7 @@ public:
     void gameWon();
     void removeDestroyed();
     void movementMario();
+    void movementGoomba();
     void movementMapLeft();
     void movementMapRight();
     void movementBackground();

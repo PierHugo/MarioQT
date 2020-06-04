@@ -3,6 +3,7 @@
 #include <QApplication>
 #include <QDebug>
 #include "model.h"
+#include <iostream>
 
 
 GameBoard::GameBoard(Model *model, QWidget *parent)
@@ -72,6 +73,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
     }
 
     QRect sourceRect = QRect(currentFrame, 1, 57, 68);
+
     if(moveR){
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveRSprite(), sourceRect);
     }
@@ -79,7 +81,13 @@ void GameBoard::paintEvent(QPaintEvent *event)
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getMoveLSprite(), sourceRect);
     }
     else
+    {
         painter.drawPixmap(model->getMario()->getRect(), model->getMario()->getStopSprite(), sourceRect);
+    }
+
+    // Generate Goomba
+    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
+    painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
@@ -110,6 +118,7 @@ void GameBoard::timerEvent(QTimerEvent *event)
 {
     splashScreen();
     movementMario();
+    movementGoomba();
     removeDestroyed();
     repaint();
 }
@@ -676,4 +685,11 @@ void GameBoard::splashScreen()
         model->getSplashScreen()->move(x, y);
     else
         isSplashScreen = false;
+}
+
+void GameBoard::movementGoomba(){
+    int y=model->getGoomba()->getRect().y();
+    int x=model->getGoomba()->getRect().x();
+
+    model->getGoomba()->move(x-1, y);
 }

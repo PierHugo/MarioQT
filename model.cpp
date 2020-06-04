@@ -1,4 +1,5 @@
 #include "model.h"
+#include "goomba.h"
 #include <mario.h>
 #include <question.h>
 #include <brick.h>
@@ -17,10 +18,12 @@ Model::Model()
     this->spikes= new QMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
+    this->goomba = new Goomba(550, 415);
     this->splashScreen = new SplashScreen(50, 100);
     this->gameOver = new GameOver(50, 100);
     this->won = new Won(50, 100);
     this->background = new QMap<int,Background *>;
+
 
     floorCount=0;
 
@@ -78,6 +81,7 @@ Model::~Model() {
     delete questions;
     delete mario;
     delete splashScreen;
+    delete goomba;
     delete gameOver;
     delete won;
 }

@@ -22,8 +22,10 @@ SOURCES += main.cpp \
     flag.cpp \
     gameboard.cpp \
     floor.cpp \
+    goomba.cpp \
     gameover.cpp \
     mario.cpp \
+    monster.cpp \
     person.cpp \
     model.cpp \
     question.cpp \
@@ -37,8 +39,10 @@ HEADERS  += gameboard.h \
     brick.h \
     flag.h \
     floor.h \
+    goomba.h \
     gameover.h \
     mario.h \
+    monster.h \
     person.h \
     model.h \
     question.h \
