@@ -49,36 +49,42 @@ void GameBoard::paintEvent(QPaintEvent *event)
   QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
   QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
 
+  // Generate Floor
   while (i != model->getFloors()->constEnd())
   {
     painter.drawImage(i.value()->getRect(),i.value()->getImage());
     ++i;
   }
 
+  // Generate Spikes
   while (s != model->getSpikes()->constEnd())
   {
     painter.drawImage(s.value()->getRect(),s.value()->getImage());
     ++s;
   }
 
+  // Generate Question
   while (e != model->getQuestions()->constEnd())
   {
     painter.drawImage(e.value()->getRect(),e.value()->getImage());
     ++e;
   }
 
+  // Generate Castle
   while (c != model->getCastle()->constEnd())
   {
     painter.drawImage(c.value()->getRect(),c.value()->getImage());
     ++c;
   }
 
+  // Generate Flag
   while (f != model->getFlags()->constEnd())
   {
     painter.drawImage(f.value()->getRect(),f.value()->getImage());
     ++f;
   }
 
+  // Generate Mario (walking right, left, and stopping)
   QRect sourceRect = QRect(currentFrame, 1, 57, 68);
   if(moveR)
   {
@@ -104,6 +110,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
   QRect sourceRectWingedGoomba = QRect(currentFrame, 1, 57, 68);
   painter.drawPixmap(model->getWingedGoomba()->getRect(), model->getWingedGoomba()->getMoveLSprite(), sourceRectWingedGoomba);
 
+  // Generate SplashScreen (fading)
   for(int i = 0 ; i < model->getMario()->getLife() ; i++)
   if(isSplashScreen)
   {
@@ -116,12 +123,14 @@ void GameBoard::paintEvent(QPaintEvent *event)
     opacity = 1;
     painter.setOpacity(opacity);
   }
+  // Generate GameOverScreen
   if(isGameOver)
   {
     opacity = 1;
     painter.setOpacity(opacity);
     painter.drawImage(model->getGameOver()->getRect(), model->getGameOver()->getImage());
   }
+  // Generate WonScreen
   if(isWon)
   {
     opacity = 1;
@@ -131,6 +140,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
 
 }
 
+// Game loop
 void GameBoard::timerEvent(QTimerEvent *event)
 {
   splashScreen();
@@ -141,6 +151,7 @@ void GameBoard::timerEvent(QTimerEvent *event)
   repaint();
 }
 
+// Action listenner on keystrokes (pressing)
 void GameBoard::keyPressEvent(QKeyEvent *event)
 {
   if(event->key() == Qt::Key_Right)
@@ -166,6 +177,7 @@ void GameBoard::keyPressEvent(QKeyEvent *event)
   }
 }
 
+// Action listenner on keystrokes (releasing)
 void GameBoard::keyReleaseEvent(QKeyEvent *event)
 {
   if(event->key() == Qt::Key_Right )
@@ -182,12 +194,14 @@ void GameBoard::keyReleaseEvent(QKeyEvent *event)
   }
 }
 
+// Exit game
 void GameBoard::stopGame()
 {
   killTimer(timerId);
   gameStarted = false;
 }
 
+// Manage SplashScreen
 void GameBoard::splashScreen()
 {
   int x=model->getSplashScreen()->getRect().x();
@@ -204,6 +218,7 @@ void GameBoard::splashScreen()
   }
 }
 
+// Manage GameOverScreen
 void GameBoard::gameOver()
 {
   isGameOver = true;
@@ -211,6 +226,7 @@ void GameBoard::gameOver()
   stopGame();
 }
 
+// Manage WonScreen
 void GameBoard::gameWon()
 {
   isWon = true;
@@ -218,6 +234,7 @@ void GameBoard::gameWon()
   stopGame();
 }
 
+// Garbage Collector
 void GameBoard::removeDestroyed()
 {
   QMutableMapIterator<int ,Floor * > i(*model->getFloors());
@@ -272,18 +289,21 @@ void GameBoard::removeDestroyed()
   }
 }
 
+// Manage Mario
 void GameBoard::movementMario()
 {
   int y=model->getMario()->getRect().y();
   int x=model->getMario()->getRect().x();
   int checkGoomba = 0;
 
+  // While jumping
   if(isJumping)
   {
     xRelatif+=3;
     yRelatif=(-0.02*(xRelatif*xRelatif)+100);
     y = 300-yRelatif;
 
+    // Kill the Goomba if you jump on it
     if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
     {
       qDebug() << "Goomba Death !";
@@ -292,19 +312,20 @@ void GameBoard::movementMario()
       model->deleteGoomba();
     }
 
-    //gagner si on touche le drapeau
+    // Win if you hit the flag
     if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameWon();
     }
 
+    // Die if you hit the Winged Goomba
     if(model->getWingedGoomba()->getRect().intersects(model->getMario()->getRect()))
     {
       qDebug() << "Kill by the WingedGoomba, SHAME again.";
       gameOver();
     }
 
-    //mourir si on touche les piques
+    // Die if you hit the spikes
     if(!model->getSpikes()->empty())
     {
       QList<Spike *> list = model->getSpikes()->values(1);
@@ -315,37 +336,37 @@ void GameBoard::movementMario()
       }
     }
 
-    //mourir si on touche les questions
+    // Die if you hit question block (evil)
     if(!model->getQuestions()->empty() && model->getQuestions()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameOver();
     }
 
-    //mourir si on tombe
+    // Die if you fall off
     if(model->getMario()->getRect().y()>=500)
     {
       gameOver();
     }
 
-    //marche à gauche et est à gauche
+    // Jumping left when reaching left border
     if(moveL && model->getMario()->getRect().x()<=20)
     {
       movementMapLeft();
       moveCount--;
     }
-    //marche à gauche et est à droite
+    // Jumping left
     else if(moveL && model->getMario()->getRect().x()>=20)
     {
       x-=2;
       moveCount--;
     }
-    //marche à droite et est à gauche
+    // Jumping right
     else if(moveR && model->getMario()->getRect().x()<=150)
     {
       x+=2;
       moveCount++;
     }
-    //marche à gauche et est à droite
+    // Jumping right when reaching right border
     else if(moveR && model->getMario()->getRect().x()>=150)
     {
       movementMapRight();
@@ -355,26 +376,27 @@ void GameBoard::movementMario()
     model->getMario()->move(x,y);
   }
 
+  // While walking
   if(intersect())
   {
     xRelatif=-100;
     yRelatif=0;
     isJumping=false;
 
-    //mourir si on touche le Goomba
+    // Die if you hit the Goomba
     if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
     {
       qDebug() << "Kill by Goomba, SHAME !";
       gameOver();
     }
 
-    //gagner si on touche le drapeau
+    // Win if you hit the flag
     if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameWon();
     }
 
-    //mourir si on touche les piques
+    // Die if you hit the spikes
     if(!model->getSpikes()->empty())
     {
       QList<Spike *> list = model->getSpikes()->values(1);
@@ -385,50 +407,43 @@ void GameBoard::movementMario()
           gameOver();
         }
       }
-
     }
 
-    //mourir si on touche les questions
+    // Die if you hit the question block (evil)
     if(!model->getQuestions()->empty() && model->getQuestions()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameOver();
     }
 
-    //mourir si on touche le Goomba
-    if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
-    {
-      gameOver();
-    }
-
-    //mourir si on tombe
+    // Die if you fall off
     if(model->getMario()->getRect().y()>=500)
     {
       gameOver();
     }
 
-    //marche à gauche et est à gauche
+    // Walking left when reaching left border
     if(moveL && model->getMario()->getRect().x()<=20){
       movementMapLeft();
       moveCount--;
     }
-    //marche à gauche et est à droite
+    // Walking left
     else if(moveL && model->getMario()->getRect().x()>=20){
       x-=2;
       moveCount--;
     }
-    //marche à droite et est à gauche
+    // Walking right
     else if(moveR && model->getMario()->getRect().x()<=150){
       x+=2;
       moveCount++;
     }
-    //marche à gauche et est à droite
+    // Walking right when reaching right border
     else if(moveR && model->getMario()->getRect().x()>=150){
       movementMapRight();
       moveCount++;
     }
-
     model->getMario()->move(x, y);
 
+    // Animating to make Mario walk
     if(moveR && tempMove == 1){
       currentFrame += 60;
       if (currentFrame >= 180 )
@@ -455,62 +470,64 @@ void GameBoard::movementMario()
       currentFrame = 0;
     }
   }
+
+  // While falling after spawn
   if(!intersect() && !isJumping)
   {
     y += 4;
-    //gagner si on touche le drapeau
+    // Win if you hit the flag
     if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameWon();
     }
 
-    //mourir si on touche les piques
+    // Die if you hit the spikes
     if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
     {
       gameOver();
     }
 
-    //mourir
+    // Die if you fall off
     if(model->getMario()->getRect().y()>=500)
     {
       gameOver();
     }
 
-    //va à gauche et est à gauche
+    // Going left when reaching left border
     if(moveL && model->getMario()->getRect().x()<=20)
     {
       movementMapLeft();
       moveCount--;
     }
-    //va à gauche et est à droite
+    // Going left
     else if(moveL && model->getMario()->getRect().x()>=20)
     {
       x-=3;
       moveCount--;
     }
-    //va à droite et est à gauche
+    // Going right
     else if(moveR && model->getMario()->getRect().x()<=150)
     {
       x+=3;
       moveCount++;
     }
-    //va à gauche et est à droite
+    // Going right when reaching right border
     else if(moveR && model->getMario()->getRect().x()>=150)
     {
       movementMapRight();
       moveCount++;
     }
-
     model->getMario()->move(x, y);
   }
 }
 
+// Mario walking (intersecting with the floor)
 bool GameBoard::intersect()
 {
   QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
   model->getFloors();
   while (i != model->getFloors()->constEnd())
-    {
+  {
     if ((model->getMario()->getRect()).intersects(i.value()->getRect()))
     {
       return true;
@@ -520,6 +537,7 @@ bool GameBoard::intersect()
   return false;
 }
 
+// Goomba walking left
 void GameBoard::movementGoomba()
 {
   if (!isGoombaSmashed)
@@ -534,6 +552,7 @@ void GameBoard::movementGoomba()
   }
 }
 
+// WingedGoomba flying left
 void GameBoard::movementWingedGoomba()
 {
   int x=model->getWingedGoomba()->getRect().x();
@@ -542,21 +561,17 @@ void GameBoard::movementWingedGoomba()
   model->getWingedGoomba()->move(x-1.25, y);
 }
 
+// Map scrolling when going to the right
 void GameBoard::movementMapRight()
 {
-  movementGoomba();
-  movementWingedGoomba();
   int x0=0;
   int y0=0;
 
-  QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
-  while (i != model->getFloors()->constEnd())
-  {
-    x0=i.value()->getRect().x();
-    i.value()->moveBlock(x0-4);
-    ++i;
-  }
+  // Ennemies not affected by the scrolling
+  movementGoomba();
+  movementWingedGoomba();
 
+  // Background scrolling (slowly)
   QMap< int,Background *>::const_iterator k = model->getBackground()->constBegin();
   if(getIterBackground() == 4)
   {
@@ -579,6 +594,16 @@ void GameBoard::movementMapRight()
     setIterBackground(getIterBackground() + 1);
   }
 
+  // Floor scrolling
+  QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
+  while (i != model->getFloors()->constEnd())
+  {
+    x0=i.value()->getRect().x();
+    i.value()->moveBlock(x0-4);
+    ++i;
+  }
+
+  // Question block scrolling
   QMap< int,Question *>::const_iterator j = model->getQuestions()->constBegin();
   while (j != model->getQuestions()->constEnd())
   {
@@ -587,14 +612,7 @@ void GameBoard::movementMapRight()
     ++j;
   }
 
-  QMap< int,Castle *>::const_iterator c = model->getCastle()->constBegin();
-  while (c != model->getCastle()->constEnd())
-  {
-    x0=c.value()->getRect().x();
-    c.value()->moveBlock(x0-4);
-    ++c;
-  }
-
+  // Spikes scrolling
   QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
   while (s != model->getSpikes()->constEnd())
   {
@@ -603,6 +621,7 @@ void GameBoard::movementMapRight()
     ++s;
   }
 
+  // Flag scrolling
   QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
   while (f != model->getFlags()->constEnd())
   {
@@ -611,6 +630,16 @@ void GameBoard::movementMapRight()
     ++f;
   }
 
+  // Castle scrolling
+  QMap< int,Castle *>::const_iterator c = model->getCastle()->constBegin();
+  while (c != model->getCastle()->constEnd())
+  {
+    x0=c.value()->getRect().x();
+    c.value()->moveBlock(x0-4);
+    ++c;
+  }
+
+  // Endlees loop to generate floor
   QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
   while (i0 != model->getFloors()->constEnd())
   {
@@ -627,6 +656,7 @@ void GameBoard::movementMapRight()
     ++i0;
   }
 
+  // Endlees loop to generate background
   QMap< int,Background *>::const_iterator b0= model->getBackground()->constBegin();
   while (b0 != model->getBackground()->constEnd())
   {
@@ -641,25 +671,20 @@ void GameBoard::movementMapRight()
     ++b0;
   }
 
+  // After a little walk, generate the level
   if(moveCount==200)
   {
     generateMap();
   }
 }
 
+// Map scrolling when going to the left
 void GameBoard::movementMapLeft()
 {
   int x0=0;
   int y0=0;
 
-  QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
-  while (i != model->getFloors()->constEnd())
-  {
-    x0=i.value()->getRect().x();
-    i.value()->moveBlock(x0+4);
-    ++i;
-  }
-
+  // Background scrolling (slowly)
   QMap< int,Background *>::const_iterator k = model->getBackground()->constBegin();
   if(getIterBackground() == 4){
     while (k != model->getBackground()->constEnd())
@@ -680,6 +705,16 @@ void GameBoard::movementMapLeft()
     setIterBackground(getIterBackground() + 1);
   }
 
+  // Floor scrolling
+  QMap< int,Floor *>::const_iterator i = model->getFloors()->constBegin();
+  while (i != model->getFloors()->constEnd())
+  {
+    x0=i.value()->getRect().x();
+    i.value()->moveBlock(x0+4);
+    ++i;
+  }
+
+  // Question block scrolling
   QMap< int,Question *>::const_iterator j = model->getQuestions()->constBegin();
   while (j != model->getQuestions()->constEnd())
   {
@@ -688,6 +723,7 @@ void GameBoard::movementMapLeft()
     ++j;
   }
 
+  // Spikes scrolling
   QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
   while (s != model->getSpikes()->constEnd())
   {
@@ -696,6 +732,7 @@ void GameBoard::movementMapLeft()
     ++s;
   }
 
+  // Flag scrolling
   QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
   while (f != model->getFlags()->constEnd())
   {
@@ -704,48 +741,28 @@ void GameBoard::movementMapLeft()
     ++f;
   }
 
-  QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
-  while (i0 != model->getFloors()->constEnd())
+  // Castle scrolling
+  QMap< int,Castle *>::const_iterator c = model->getCastle()->constBegin();
+  while (c != model->getCastle()->constEnd())
   {
-    if(i0.value()->getRect().x() < -model->blockSize)
-    {
-      i0.value()->setDestroyed(true);
-      x0=i0.value()->getRect().x();
-      y0=i0.value()->getRect().y();
-      Floor* k =new Floor(x0+13*50,y0);
-      model->getFloors()->insert(model->getFloorCount(),k);
-      qDebug() << "create Floor:" << model->getFloorCount() ;
-      model->setFloorCount();
-    }
-    ++i0;
-  }
-
-  QMap< int,Background *>::const_iterator b0= model->getBackground()->constBegin();
-  while (b0 != model->getBackground()->constEnd())
-  {
-    if(b0.value()->getRect().x() < - b0.value()->getRect().width() + 2)
-    {
-      b0.value()->setDestroyed(true);
-      Background* b = new Background(b0.value()->getRect().width(),0);
-      model->getBackground()->insert(model->getBackgroundCount(), b);
-      qDebug() << "create Background:" << model->getBackgroundCount() ;
-      model->setBackgroundCount();
-    }
-    ++b0;
+    x0=c.value()->getRect().x();
+    c.value()->moveBlock(x0+4);
+    ++c;
   }
 }
 
+// Level bulding (obstacles, monsters, flag, castle)
 void GameBoard::generateMap()
 {
-  // Generate Goomba
+  // Goomba
   Goomba *g2 = new Goomba(551, 415);
   model->setGoomba(g2);
 
-  // Generate WingedGoomba
+  // WingedGoomba
   WingedGoomba *wg1 = new WingedGoomba(1250, 200);
   model->setWingedGoomba(wg1);
 
-  //3 premiers blocs
+  // line of 3 spikes
   int x0=600;
   int y0=250;
   Spike* spike =new Spike(x0,y0);
@@ -767,7 +784,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //tour de 2
+  // tower of 2 spikes
   x0=850;
   y0=400;
   Spike* spike4 =new Spike(x0,y0);
@@ -781,7 +798,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //3 blocs en ligne
+  // line of 3 spikes
   x0=1050;
   y0=250;
   Spike* spike6 =new Spike(x0,y0);
@@ -803,7 +820,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //cube en L inversé
+  // reversed L shape
   x0=1300;
   y0=400;
   Spike* spike9 =new Spike(x0,y0);
@@ -824,7 +841,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //cube en V
+  // V shape
   x0=1500;
   y0=250;
   Spike* spike12 =new Spike(x0,y0);
@@ -846,7 +863,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //2 tours
+  // tower of 2 spikes
   x0=1750;
   y0=350;
   Spike* spike15 =new Spike(x0,y0);
@@ -860,6 +877,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
+  // tower of 3 spikes
   x0=1900;
   y0=300;
   Spike* spike17 =new Spike(x0,y0);
@@ -879,7 +897,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount() ;
   model->setSpikeCount();
 
-  //cube question
+  // question bloc
   x0=2050;
   y0=250;
   Question* q =new Question(x0,y0);
@@ -887,7 +905,7 @@ void GameBoard::generateMap()
   qDebug() << "create Question:" << model->getQuestionCount() ;
   model->setQuestionCount();
 
-  //cube "parachute"
+  // bracket shaped + dot
   x0=2200;
   y0=180;
   Spike* spike20 = new Spike(x0, y0);
@@ -929,7 +947,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount();
   model->setSpikeCount();
 
-  //Diagonale de 2
+  // diagonal of 2 spikes
   x0=2550;
   y0=280;
   Spike* spike26 = new Spike(x0, y0);
@@ -944,8 +962,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount();
   model->setSpikeCount();
 
-
-  //2 cubes solos
+  // 2 dots
   x0=2750;
   y0=400;
   Spike* spike28 = new Spike(x0, y0);
@@ -960,8 +977,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount();
   model->setSpikeCount();
 
-
-  //passage sur-élevé
+  // fence
   x0=3150;
   y0=400;
   Spike* spike30 = new Spike(x0, y0);
@@ -993,8 +1009,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount();
   model->setSpikeCount();
 
-
-  //petit enchainement de sauts
+  // dots
   x0=3350;
   y0=400;
   Spike* spike35 = new Spike(x0, y0);
@@ -1016,7 +1031,7 @@ void GameBoard::generateMap()
   qDebug() << "create Spike:" << model->getSpikeCount();
   model->setSpikeCount();
 
-  //Drapeau
+  // flag
   x0=4000;
   y0=190;
   Flag* flag =new Flag(x0,y0);
@@ -1024,7 +1039,7 @@ void GameBoard::generateMap()
   qDebug() << "create Flag:" << model->getFlagCount() ;
   model->setFlagCount();
 
-  //Chateau
+  // castle
   x0 += 150;
   y0 = 118;
   Castle* castle = new Castle(x0, y0);
