@@ -36,13 +36,14 @@ public:
     void gameWon();
     void removeDestroyed();
     void movementMario();
-    void movementGoomba();
     void movementMapLeft();
     void movementMapRight();
     void movementBackground();
     bool intersect();
     void splashScreen();
     void generateMap();
+    void movementGoomba();
+    void movementFlyingThing();
 
 
 private:

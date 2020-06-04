@@ -89,6 +89,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
     painter.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
 
+    // Generate FlyingThing
+    QRect sourceRectFlyingThing = QRect(currentFrame, 1, 57, 68);
+    painter.drawPixmap(model->getFlyingThing()->getRect(), model->getFlyingThing()->getMoveLSprite(), sourceRectFlyingThing);
+
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
             opacity = opacity - 0.0003;
@@ -119,6 +123,7 @@ void GameBoard::timerEvent(QTimerEvent *event)
     splashScreen();
     movementMario();
     movementGoomba();
+    movementFlyingThing();
     removeDestroyed();
     repaint();
 }
@@ -692,4 +697,11 @@ void GameBoard::movementGoomba(){
     int x=model->getGoomba()->getRect().x();
 
     model->getGoomba()->move(x-1, y);
+}
+
+void GameBoard::movementFlyingThing(){
+    int x=model->getFlyingThing()->getRect().x();
+    int y=model->getFlyingThing()->getRect().y();
+
+    model->getFlyingThing()->move(x-1, y);
 }

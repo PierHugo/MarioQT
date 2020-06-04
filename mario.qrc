@@ -14,5 +14,6 @@
         <file>images/won.png</file>
         <file>images/flag.png</file>
         <file>images/spike.png</file>
+        <file>images/flying_thing.png</file>
     </qresource>
 </RCC>

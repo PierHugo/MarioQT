@@ -20,6 +20,7 @@ SOURCES += main.cpp \
     block.cpp \
     brick.cpp \
     flag.cpp \
+    flyingthing.cpp \
     gameboard.cpp \
     floor.cpp \
     goomba.cpp \
@@ -39,6 +40,7 @@ HEADERS  += gameboard.h \
     brick.h \
     flag.h \
     floor.h \
+    flyingthing.h \
     goomba.h \
     gameover.h \
     mario.h \
