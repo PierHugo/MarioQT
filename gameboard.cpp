@@ -4,6 +4,8 @@
 #include <QDebug>
 #include "model.h"
 #include <iostream>
+#include <QMediaPlayer>
+
 
 GameBoard::GameBoard(Model *model, QWidget *parent)
 : model(model), QWidget(parent)
@@ -25,6 +27,13 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
   setIterBackground(0);
   isGameOver = false;
   isWon= false;
+
+  // Music when game is launched
+  QMediaPlayer * musicBG = new QMediaPlayer();
+  musicBG->setMedia(QUrl("qrc:/sounds/music.mp3"));
+  // Volume at 5%, adjust to preference
+  musicBG->setVolume(5);
+  musicBG->play();
 }
 
 GameBoard::~GameBoard()
@@ -306,7 +315,7 @@ void GameBoard::movementMario()
     // Kill the Goomba if you jump on it
     if(model->getGoomba()->getRect().intersects(model->getMario()->getRect()))
     {
-      qDebug() << "Goomba Death !";
+      qDebug() << "Goomba Dead";
       isGoombaSmashed=true;
       model->getGoomba()->setLife(0);
       model->deleteGoomba();

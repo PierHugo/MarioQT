@@ -14,5 +14,6 @@
         <file>images/flag.png</file>
         <file>images/goomba.png</file>
         <file>images/wingedgoomba.png</file>
+        <file>sounds/music.mp3</file>
     </qresource>
 </RCC>
