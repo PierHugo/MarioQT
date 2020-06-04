@@ -10,6 +10,9 @@
 GameBoard::GameBoard(Model *model, QWidget *parent)
 : model(model), QWidget(parent)
 {
+  //Start timer of one Game
+  gameTimer.start();
+
   this->model = model;
   timerId = startTimer(10);
   gameStarted = true;
@@ -231,7 +234,12 @@ void GameBoard::splashScreen()
 void GameBoard::gameOver()
 {
   isGameOver = true;
-  qDebug() << "Vous êtes mort, Echap pour quitter";
+
+  // Get the time of one game in seconds
+  int gameTime = gameTimer.elapsed()/1000;
+
+  qDebug() << "Vous êtes mort, est vous n'avez tenu que " << gameTime << "secondes...";
+  qDebug() << "Echap pour quitter";
   stopGame();
 }
 
@@ -239,7 +247,11 @@ void GameBoard::gameOver()
 void GameBoard::gameWon()
 {
   isWon = true;
-  qDebug() << "Vous venez de gagner, Echap pour quitter";
+
+  // Get the time of one game in seconds
+  int gameTime = gameTimer.elapsed()/1000;
+  qDebug() << "Vous venez de terminer la partie en " << gameTime << "secondes !";
+  qDebug() << "Echap pour quitter";
   stopGame();
 }
 

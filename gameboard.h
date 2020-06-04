@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QMutableMapIterator>
+#include <QElapsedTimer>
 
 #include "question.h"
 #include "spike.h"
@@ -66,7 +67,9 @@ private:
     float currentFrame = 1;
     int tempMove = 0;
     char* lastMove = "R";
+
     qreal opacity = 1;
+    QElapsedTimer gameTimer;
 
 };
 #endif // GAMEBOARD_H
