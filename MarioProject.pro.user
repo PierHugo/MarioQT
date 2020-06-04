@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.12.0, 2020-06-03T18:33:08. -->
+<!-- Written by QtCreator 4.12.0, 2020-06-04T01:35:37. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -308,8 +308,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/epied/Desktop/Cours/4A/S8/QT/TD/QtMario/mario/MarioProject.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/epied/Desktop/Cours/4A/S8/QT/TD/QtMario/mario/MarioProject.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">MarioProject2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/epied/Desktop/Cours/4A/S8/QT/TD/QtMario/NewMario/MarioQT/MarioProject.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/epied/Desktop/Cours/4A/S8/QT/TD/QtMario/NewMario/MarioQT/MarioProject.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>

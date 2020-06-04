@@ -36,6 +36,9 @@ public:
     void movementBackground();
     bool intersect();
     void splashScreen();
+    void createBricks();
+    void createFlag();
+    void createCastle();
 
 
 private:
