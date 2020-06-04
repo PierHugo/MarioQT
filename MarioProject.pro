@@ -19,6 +19,7 @@ RESOURCES += mario.qrc
 SOURCES += main.cpp \
     block.cpp \
     brick.cpp \
+    flag.cpp \
     gameboard.cpp \
     floor.cpp \
     gameover.cpp \
@@ -34,6 +35,7 @@ SOURCES += main.cpp \
 HEADERS  += gameboard.h \
     block.h \
     brick.h \
+    flag.h \
     floor.h \
     gameover.h \
     mario.h \

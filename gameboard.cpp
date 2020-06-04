@@ -19,6 +19,7 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     questionCount=0;
     brickCount=0;
     spikeCount=0;
+    flagCount=0;
     moveCount=0;
     isSplashScreen = true;
     setIterBackground(0);
@@ -46,6 +47,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
     QMap< int,Question *>::const_iterator e = model->getQuestions()->constBegin();
     QMap< int,Brick*>::const_iterator r = model->getBricks()->constBegin();
     QMap< int,Spike*>::const_iterator s = model->getSpikes()->constBegin();
+    QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
 
 
     while (i != model->getFloors()->constEnd()) {
@@ -63,6 +65,10 @@ void GameBoard::paintEvent(QPaintEvent *event)
     while (e != model->getQuestions()->constEnd()) {
         painter.drawImage(e.value()->getRect(),e.value()->getImage());
         ++e;
+    }
+    while (f != model->getFlags()->constEnd()) {
+        painter.drawImage(f.value()->getRect(),f.value()->getImage());
+        ++f;
     }
 
     QRect sourceRect = QRect(currentFrame, 1, 57, 68);
@@ -207,6 +213,14 @@ void GameBoard::removeDestroyed()
             s.remove();
         }
     }
+    QMutableMapIterator<int ,Flag* > f(*model->getFlags());
+    while (f.hasNext()) {
+        f.next();
+        if (f.value()->isDestroyed() ){
+            qDebug() << "Remove Flags:" << f.key() ;
+            f.remove();
+        }
+    }
     QMutableMapIterator<int ,Background * > b(*model->getBackground());
     while (b.hasNext()) {
         b.next();
@@ -231,13 +245,15 @@ void GameBoard::movementMario()
 
 
 
-        //gagner si on touche le bloc mystère
-        if(!model->getQuestions()->empty() && model->getQuestions()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        //gagner si on touche le drapeau
+        //FIXME : juste le premier est pris en compte
+        if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
         {
             gameWon();
         }
 
-        //perdre si on touche les piqeyes
+        //mourir si on touche les piques
+        //FIXME : juste le premier est pris en compte
         if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
         {
             gameOver();
@@ -280,6 +296,21 @@ void GameBoard::movementMario()
         xRelatif=-100;
         yRelatif=0;
         isJumping=false;
+
+
+        //gagner si on touche le drapeau
+        //FIXME : juste le premier est pris en compte
+        if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        {
+            gameWon();
+        }
+
+        //mourir si on touche les piques
+        //FIXME : juste le premier est pris en compte
+        if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        {
+            gameOver();
+        }
 
         //mourir
         if(model->getMario()->getRect().y()>=500)
@@ -333,6 +364,21 @@ void GameBoard::movementMario()
     }
     if(!intersect() && !isJumping){
         y += 4;
+        //gagner si on touche le drapeau
+        //FIXME : juste le premier est pris en compte
+        if(!model->getFlags()->empty() && model->getFlags()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        {
+            gameWon();
+        }
+
+        //mourir si on touche les piques
+        //FIXME : juste le premier est pris en compte
+        if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
+        {
+            gameOver();
+        }
+
+        //mourir
         if(model->getMario()->getRect().y()>=500)
         {
             gameOver();
@@ -413,6 +459,13 @@ void GameBoard::movementMapRight()
         x0=s.value()->getRect().x();
         s.value()->moveBlock(x0-4);
         ++s;
+    }
+
+    QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
+    while (f != model->getFlags()->constEnd()) {
+        x0=f.value()->getRect().x();
+        f.value()->moveBlock(x0-4);
+        ++f;
     }
 
     QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();
@@ -502,6 +555,12 @@ void GameBoard::generateMap()
 
 
 
+    x0=1200;
+    y0=190;
+    Flag* f =new Flag(x0,y0);
+    model->getFlags()->insert(model->getFlagCount(), f);
+    qDebug() << "create Flag:" << model->getFlagCount() ;
+    model->setFlagCount();
 
 
 
@@ -558,6 +617,13 @@ void GameBoard::movementMapLeft()
         x0=s.value()->getRect().x();
         s.value()->moveBlock(x0+4);
         ++s;
+    }
+
+    QMap< int,Flag*>::const_iterator f = model->getFlags()->constBegin();
+    while (f != model->getFlags()->constEnd()) {
+        x0=f.value()->getRect().x();
+        f.value()->moveBlock(x0+4);
+        ++f;
     }
 
     QMap< int,Floor *>::const_iterator i0= model->getFloors()->constBegin();

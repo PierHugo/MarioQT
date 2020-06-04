@@ -8,6 +8,7 @@
 #include "question.h"
 #include "brick.h"
 #include "spike.h"
+#include "flag.h"
 #include "floor.h"
 #include "mario.h"
 
@@ -53,6 +54,7 @@ private:
     int questionCount;
     int brickCount;
     int spikeCount;
+    int flagCount;
     int moveCount;
     int floorCount;
     bool moveR;
