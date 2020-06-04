@@ -62,7 +62,7 @@ public:
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
-    inline void setFlag(QMap<int, Flag*> *flag){this->flag = flag;}
+    inline void setFlag(QMap<int, Flag*> *flag){this->flags = flag;}
     inline void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
     int const blockSize = 50;
 
