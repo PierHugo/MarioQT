@@ -425,6 +425,7 @@ void GameBoard::movementMario()
 
 void GameBoard::movementMapRight()
 {
+    movementGoomba();
     int x0=0;
     int y0=0;
 
@@ -631,6 +632,14 @@ void GameBoard::generateMap()
 //    model->getQuestions()->insert(model->getQuestionCount(), l);
 //    qDebug() << "create Question:" << model->getQuestionCount() ;
 //    model->setQuestionCount();
+    // Generate Goomba
+
+    Goomba *g2 = new Goomba(551, 415);
+    model->setGoomba(g2);
+
+    QPainter paint(this);
+    QRect sourceRectGoomba = QRect(currentFrame, 1, 57, 68);
+    paint.drawPixmap(model->getGoomba()->getRect(), model->getGoomba()->getMoveLSprite(), sourceRectGoomba);
 
 
     int x0=800;
@@ -654,9 +663,7 @@ void GameBoard::generateMap()
     qDebug() << "create Spike:" << model->getSpikeCount() ;
     model->setSpikeCount();
 
-
-
-    x0=2000;
+    x0=3000;
     y0=190;
     Flag* f =new Flag(x0,y0);
     model->getFlags()->insert(model->getFlagCount(), f);

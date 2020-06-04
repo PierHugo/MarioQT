@@ -18,7 +18,7 @@ Model::Model()
     this->spikes= new QMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
-    this->goomba1 = new Goomba(550, 415);
+    this->goomba1 = new Goomba(-50, 0);
     this->flyTh1 = new FlyingThing(1000, 200);
     this->splashScreen = new SplashScreen(50, 100);
     this->gameOver = new GameOver(50, 100);
