@@ -55,7 +55,7 @@ private:
     int xRelatif;
     int yRelatif;
     int questionCount;
-    int brickCount;
+//    int brickCount;
     int spikeCount;
     int flagCount;
     int moveCount;
