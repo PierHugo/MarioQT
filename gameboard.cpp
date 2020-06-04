@@ -106,6 +106,7 @@ void GameBoard::keyPressEvent(QKeyEvent *event)
     {
         stopGame();
         qApp->exit();
+
     }
     else
         event->ignore();
@@ -128,21 +129,22 @@ void GameBoard::keyReleaseEvent(QKeyEvent *event)
 
 void GameBoard::stopGame()
 {
-    killTimer(timerId);
-    gameStarted = false;
+        killTimer(timerId);
+        gameStarted = false;
+
 }
 
 
 void GameBoard::gameOver()
 {
-    stopGame();
     qDebug() << "Vous êtes mort, Echap pour quitter";
+    stopGame();
 }
 
 void GameBoard::gameWon()
 {
-    stopGame();
     qDebug() << "Vous venez de gagner, Echap pour quitter";
+    stopGame();
 }
 
 
@@ -243,10 +245,7 @@ void GameBoard::movementMario()
         //mourir
         if(model->getMario()->getRect().y()>=500)
         {
-            qDebug() << "Vous  êtes mort";
-            //TODO : appel d'une fonction qui affiche qu'on est mort, puis quitte le programme
-            stopGame();
-            qApp->exit();
+            gameOver();
         }
 
         //marche à gauche et est à gauche
@@ -295,18 +294,33 @@ void GameBoard::movementMario()
     }
     if(!intersect() && !isJumping){
         y += 4;
-        if(moveL && model->getMario()->getRect().x()>=2){
+        if(model->getMario()->getRect().y()>=500)
+        {
+            gameOver();
+        }
+
+        //va à gauche et est à gauche
+        if(moveL && model->getMario()->getRect().x()<=20){
+            movementMapLeft();
+            moveCount--;
+        }
+        //va à gauche et est à droite
+        else if(moveL && model->getMario()->getRect().x()>=20){
             x-=3;
-            moveCount--;        }
-        else if(moveR && model->getMario()->getRect().x()<=60){
+            moveCount--;
+        }
+        //va à droite et est à gauche
+        else if(moveR && model->getMario()->getRect().x()<=150){
             x+=3;
             moveCount++;
         }
-        else if(moveR && model->getMario()->getRect().x()>=60){
+        //va à gauche et est à droite
+        else if(moveR && model->getMario()->getRect().x()>=150){
             movementMapRight();
             moveCount++;
         }
-        model->getMario()->move(x,y);
+
+        model->getMario()->move(x, y);
     }
 }
 
