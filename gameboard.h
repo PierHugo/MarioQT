@@ -56,6 +56,8 @@ private:
     bool moveL;
     bool isJumping;
     bool isSplashScreen;
+    bool isGameOver;
+    bool isWon;
     int iterBackground;
     float currentFrame = 1;
     int tempMove = 0;

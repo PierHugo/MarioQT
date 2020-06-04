@@ -21,22 +21,26 @@ SOURCES += main.cpp \
     brick.cpp \
     gameboard.cpp \
     floor.cpp \
+    gameover.cpp \
     mario.cpp \
     person.cpp \
     model.cpp \
     question.cpp \
     splashscreen.cpp \
-    background.cpp
+    background.cpp \
+    won.cpp
 
 HEADERS  += gameboard.h \
     block.h \
     brick.h \
     floor.h \
+    gameover.h \
     mario.h \
     person.h \
     model.h \
     question.h \
     splashscreen.h \
-    background.h
+    background.h \
+    won.h
 
 DISTFILES +=

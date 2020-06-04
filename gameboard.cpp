@@ -21,6 +21,8 @@ GameBoard::GameBoard(Model *model, QWidget *parent)
     moveCount=0;
     isSplashScreen = true;
     setIterBackground(0);
+    isGameOver = false;
+    isWon= false;
 }
 
 GameBoard::~GameBoard()
@@ -69,7 +71,7 @@ void GameBoard::paintEvent(QPaintEvent *event)
 
     for(int i = 0 ; i < model->getMario()->getLife() ; i++)
         if(isSplashScreen){
-            opacity = opacity - 0.01;
+            opacity = opacity - 0.0003;
             painter.setOpacity(opacity);
             painter.drawImage(model->getSplashScreen()->getRect(), model->getSplashScreen()->getImage());
         }
@@ -77,6 +79,18 @@ void GameBoard::paintEvent(QPaintEvent *event)
             opacity = 1;
             painter.setOpacity(opacity);
         }
+    if(isGameOver){
+        opacity = 1;
+        painter.setOpacity(opacity);
+        painter.drawImage(model->getGameOver()->getRect(), model->getGameOver()->getImage());
+    }
+    if(isWon){
+        opacity = 1;
+        painter.setOpacity(opacity);
+        painter.drawImage(model->getWon()->getRect(), model->getWon()->getImage());
+    }
+
+
 }
 
 void GameBoard::timerEvent(QTimerEvent *event)
@@ -137,12 +151,16 @@ void GameBoard::stopGame()
 
 void GameBoard::gameOver()
 {
+
+    isGameOver = true;
     qDebug() << "Vous êtes mort, Echap pour quitter";
+
     stopGame();
 }
 
 void GameBoard::gameWon()
 {
+    isWon = true;
     qDebug() << "Vous venez de gagner, Echap pour quitter";
     stopGame();
 }
@@ -513,10 +531,11 @@ bool GameBoard::intersect()
     return false;
 }
 
-void GameBoard::splashScreen(){
+void GameBoard::splashScreen()
+{
     int x=model->getSplashScreen()->getRect().x();
     int y=model->getSplashScreen()->getRect().y();
-    y = y - 2;
+    y = y - 0.5;
     if(model->getSplashScreen()->getRect().bottom() > 0 && isSplashScreen)
         model->getSplashScreen()->move(x, y);
     else

@@ -4,6 +4,7 @@
 #include <brick.h>
 #include <floor.h>
 #include <splashscreen.h>
+#include <gameover.h>
 #include <QDebug>
 
 Model::Model()
@@ -12,7 +13,9 @@ Model::Model()
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
     this->mario = new Mario(100,144);
-    this->splashScreen = new SplashScreen(100, 100);
+    this->splashScreen = new SplashScreen(50, 100);
+    this->gameOver = new GameOver(50, 100);
+    this->won = new Won(50, 100);
     this->background = new QMap<int,Background *>;
 
     floorCount=0;
@@ -57,6 +60,8 @@ Model::~Model() {
     delete questions;
     delete mario;
     delete splashScreen;
+    delete gameOver;
+    delete won;
 }
 
 

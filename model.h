@@ -5,6 +5,8 @@
 #include <QMutableMapIterator>
 #include <QString>
 #include <splashscreen.h>
+#include <gameover.h>
+#include <won.h>
 #include "background.h"
 
 class Question;
@@ -23,6 +25,8 @@ public:
     inline Question *getQuestion(){ return question; }
 
     SplashScreen *getSplashScreen(){ return splashScreen; }
+    GameOver *getGameOver(){ return gameOver; }
+    Won *getWon(){ return won; }
     inline QMap<int, Question*> *getQuestions(){ return questions; }
     inline QMap<int, Brick*> *getBricks(){ return bricks; }
     inline QMap<int, Floor*> *getFloors(){ return floors; }
@@ -51,6 +55,8 @@ private:
     Mario *mario;
     Question *question;
     SplashScreen *splashScreen;
+    GameOver *gameOver;
+    Won *won;
     QMap<int, Background*> *background;
     int floorCount;
     int questionCount;
