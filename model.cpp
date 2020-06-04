@@ -2,7 +2,6 @@
 #include "goomba.h"
 #include <mario.h>
 #include <question.h>
-#include <brick.h>
 #include <spike.h>
 #include <flag.h>
 #include <floor.h>
@@ -15,7 +14,6 @@ Model::Model()
 {
     this->floors = new QMap<int,Floor *>;
     this->questions = new QMap<int,Question *>;
-//    this->bricks= new QMap<int,Brick*>;
     this->castle = new QMap<int,Castle*>;
     this->spikes= new QMultiMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
@@ -48,7 +46,6 @@ Model::Model()
 Model::~Model() {
     QMap< int,Floor *>::const_iterator i = floors->constBegin();
     QMap< int,Question *>::const_iterator e = questions->constBegin();
-//    QMap< int,Brick*>::const_iterator r = bricks->constBegin();
     QMap<int, Castle*>::const_iterator c = castle->constBegin();
     QMultiMap< int,Spike*>::const_iterator s = spikes->constBegin();
     QMap< int,Flag*>::const_iterator f = flags->constBegin();
@@ -61,10 +58,6 @@ Model::~Model() {
         delete  e.value();
         ++e;
     }
-//    while (r != bricks->constEnd()) {
-//        delete  r.value();
-//        ++r;
-//    }
     while (c != castle->constEnd()) {
         delete c.value();
         ++c;
@@ -80,8 +73,6 @@ Model::~Model() {
     }
     floors->clear();
     delete floors;
-//    bricks->clear();
-//    delete bricks;
     spikes->clear();
     delete spikes;
     flags->clear();

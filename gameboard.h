@@ -6,7 +6,6 @@
 #include <QMutableMapIterator>
 
 #include "question.h"
-#include "brick.h"
 #include "spike.h"
 #include "flag.h"
 #include "floor.h"
@@ -55,7 +54,6 @@ private:
     int xRelatif;
     int yRelatif;
     int questionCount;
-//    int brickCount;
     int spikeCount;
     int flagCount;
     int moveCount;
@@ -66,7 +64,7 @@ private:
     bool isSplashScreen;
     bool isGameOver;
     bool isGoombaSmashed;
-    bool isWon;    
+    bool isWon;
     int iterBackground;
     float currentFrame = 1;
     int tempMove = 0;
