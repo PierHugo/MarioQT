@@ -19,28 +19,36 @@ RESOURCES += mario.qrc
 SOURCES += main.cpp \
     block.cpp \
     brick.cpp \
+    flag.cpp \
     gameboard.cpp \
     floor.cpp \
     goomba.cpp \
+    gameover.cpp \
     mario.cpp \
     monster.cpp \
     person.cpp \
     model.cpp \
     question.cpp \
+    spike.cpp \
     splashscreen.cpp \
-    background.cpp
+    background.cpp \
+    won.cpp
 
 HEADERS  += gameboard.h \
     block.h \
     brick.h \
+    flag.h \
     floor.h \
     goomba.h \
+    gameover.h \
     mario.h \
     monster.h \
     person.h \
     model.h \
     question.h \
+    spike.h \
     splashscreen.h \
-    background.h
+    background.h \
+    won.h
 
 DISTFILES +=

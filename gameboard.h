@@ -7,6 +7,8 @@
 
 #include "question.h"
 #include "brick.h"
+#include "spike.h"
+#include "flag.h"
 #include "floor.h"
 #include "mario.h"
 
@@ -30,13 +32,17 @@ public:
     void keyPressEvent(QKeyEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void stopGame();
+    void gameOver();
+    void gameWon();
     void removeDestroyed();
     void movementMario();
     void movementGoomba();
-    void movementMap();
+    void movementMapLeft();
+    void movementMapRight();
     void movementBackground();
     bool intersect();
     void splashScreen();
+    void generateMap();
 
 
 private:
@@ -48,12 +54,16 @@ private:
     int yRelatif;
     int questionCount;
     int brickCount;
+    int spikeCount;
+    int flagCount;
     int moveCount;
     int floorCount;
     bool moveR;
     bool moveL;
     bool isJumping;
     bool isSplashScreen;
+    bool isGameOver;
+    bool isWon;
     int iterBackground;
     float currentFrame = 1;
     int tempMove = 0;
