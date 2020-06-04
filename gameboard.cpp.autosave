@@ -269,7 +269,7 @@ void GameBoard::movementMario()
 
         //mourir si on touche les piques
         //FIXME : juste le premier est pris en compte
-        if(!model->getSpikes()->empty())// && model->getSpikes()->find(1).value()->getRect().intersects(model->getMario()->getRect()))
+        if(!model->getSpikes()->empty())
         {
             QList<Spike *> list = model->getSpikes()->values(1);
             for(int i=0; i<list.size(); i++)

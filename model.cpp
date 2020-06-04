@@ -17,7 +17,7 @@ Model::Model()
     this->questions = new QMap<int,Question *>;
     this->bricks= new QMap<int,Brick*>;
     this->castle = new QMap<int,Castle*>;
-    this->spikes= new QMap<int,Spike*>;
+    this->spikes= new QMultiMap<int,Spike*>;
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
     this->goomba = new Goomba(550, 415);
@@ -49,7 +49,7 @@ Model::~Model() {
     QMap< int,Question *>::const_iterator e = questions->constBegin();
     QMap< int,Brick*>::const_iterator r = bricks->constBegin();
     QMap<int, Castle*>::const_iterator c = castle->constBegin();
-    QMap< int,Spike*>::const_iterator s = spikes->constBegin();
+    QMultiMap< int,Spike*>::const_iterator s = spikes->constBegin();
     QMap< int,Flag*>::const_iterator f = flags->constBegin();
 
     while (i != floors->constEnd()) {

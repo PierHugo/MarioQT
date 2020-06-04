@@ -35,7 +35,7 @@ public:
     Won *getWon(){ return won; }
     inline QMap<int, Question*> *getQuestions(){ return questions; }
     inline QMap<int, Brick*> *getBricks(){ return bricks; }
-    inline QMap<int, Spike*> *getSpikes(){ return spikes; }
+    inline QMultiMap<int, Spike*> *getSpikes(){ return spikes; }
     inline QMap<int, Flag*> *getFlags(){ return flags; }
     inline QMap<int, Floor*> *getFloors(){ return floors; }
     inline QMap<int, Background*> *getBackground(){ return background; }
@@ -61,6 +61,7 @@ public:
     inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
+    inline void setSpikes(QMultiMap<int, Spike*> *spikes){this->spikes = spikes;}
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
     inline void setFlag(QMap<int, Flag*> *flag){this->flags = flag;}
     inline void setCastle(QMap<int, Castle*> *castle){this->castle = castle;}
@@ -71,7 +72,7 @@ private:
     QMap<int, Floor*> *floors;
     QMap<int, Brick*> *bricks;
     QMap<int, Castle*> *castle;
-    QMap<int, Spike*> *spikes;
+    QMultiMap<int, Spike*> *spikes;
     QMap<int, Flag*> *flags;
     //QMap<QString, int> *count;
     Mario *mario;
