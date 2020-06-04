@@ -4,10 +4,9 @@
 #include "block.h"
 class Won: public Block
 {
-public:
+  public:
     Won(int, int);
     ~Won();
-
 };
 
 #endif // WON_H

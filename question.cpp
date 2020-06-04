@@ -2,8 +2,7 @@
 #include <iostream>
 
 Question::Question(int x, int y ) : Block(x,y, ":images/question.png")
-{
-}
+{}
 
 Question::~Question()
 {

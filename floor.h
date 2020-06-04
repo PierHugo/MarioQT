@@ -4,10 +4,10 @@
 #include "block.h"
 class Floor : public Block
 {
-public:
+  public:
 
-  Floor(int, int);
-  ~Floor();
+    Floor(int, int);
+    ~Floor();
 };
 
 #endif // FLOOR_H

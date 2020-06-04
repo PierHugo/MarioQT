@@ -4,8 +4,7 @@
 #include "block.h"
 class Question: public Block
 {
-public:
-
+  public:
   Question(int, int);
   ~Question();
 };

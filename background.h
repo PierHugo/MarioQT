@@ -5,11 +5,9 @@
 
 class Background : public Block
 {
-public:
-    Background(int, int);
-    ~Background();
-
-
+  public:
+      Background(int, int);
+      ~Background();
 };
 
 #endif // BACKGROUND_H

@@ -4,10 +4,9 @@
 #include "block.h"
 class SplashScreen : public Block
 {
-public:
+  public:
     SplashScreen(int, int);
     ~SplashScreen();
-
 };
 
 #endif // SPLASHSCREEN_H

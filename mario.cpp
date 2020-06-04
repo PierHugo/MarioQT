@@ -8,7 +8,6 @@ Mario::Mario(int x, int y ) : Person(x,y)
     this->stopSprite = QPixmap(":images/mario_stop.png");
     this->rect = QRect(x, y, 60, moveRSprite.size().height());
     this->dieRect = QRect(x, y, 60, stopSprite.size().height());
-
 }
 
 Mario::~Mario()

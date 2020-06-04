@@ -8,7 +8,7 @@
 
 class Monster
 {
-public:
+  public:
     Monster(int, int);
     ~Monster();
 
@@ -25,7 +25,7 @@ public:
     inline int getLife(){ return life; }
     inline void setLife(int life){ this->life = life; }
 
-protected:
+  protected:
     QPixmap moveLSprite;
     QRect rect;
     QRect dieRect;
@@ -35,7 +35,6 @@ protected:
     QPixmap imageMap;
     bool dead;
     int life = 1;
-
 };
 
 #endif // MONSTER_H

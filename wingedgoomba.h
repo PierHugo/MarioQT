@@ -3,10 +3,9 @@
 
 #include "monster.h"
 
-
 class WingedGoomba : public Monster
 {
-public:
+  public:
     WingedGoomba(int, int);
     ~WingedGoomba();
 };

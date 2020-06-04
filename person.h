@@ -8,7 +8,6 @@
 
 class Person
 {
-
   public:
     Person(int, int);
     ~Person();
@@ -35,12 +34,11 @@ protected:
     QRect rect;
     QRect dieRect;
 
-   private:
+ private:
     QImage image;
     QPixmap imageMap;
     bool dead;
     int life = 3;
-
 };
 
 #endif // PERSON_H

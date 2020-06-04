@@ -7,9 +7,7 @@
 
 class Block
 {
-
   public:
-
     Block(int, int , QString );
     ~Block();
     bool isDestroyed();
@@ -21,11 +19,9 @@ class Block
     void moveBlock(int );
 
   private:
-
     QImage image;
     QRect rect;
     bool destroyed;
-
 };
 
 #endif // BLOCK_H

@@ -18,7 +18,6 @@ class GameBoard : public QWidget
 {
     Q_OBJECT
 
-
 public:
     GameBoard(Model *model, QWidget *parent = 0);
     ~GameBoard();
@@ -43,8 +42,6 @@ public:
     void generateMap();
     void movementGoomba();
     void movementWingedGoomba();
-
-
 
 private:
     Model *model;

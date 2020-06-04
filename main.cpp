@@ -24,7 +24,6 @@ void center(QWidget &widget)
     widget.setFixedSize(WIDTH, HEIGHT);
 }
 
-
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);

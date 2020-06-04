@@ -4,8 +4,7 @@
 #include "block.h"
 class Spike: public Block
 {
-public:
-
+  public:
   Spike(int, int);
   ~Spike();
 };
