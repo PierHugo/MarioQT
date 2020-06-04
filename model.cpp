@@ -19,7 +19,7 @@ Model::Model()
     this->flags= new QMap<int,Flag*>;
     this->mario = new Mario(100,144);
     this->goomba = new Goomba(-50, 0);
-    this->flyTh1 = new FlyingThing(1000, 200);
+    this->flyingThing = new FlyingThing(-50, 0);
     this->splashScreen = new SplashScreen(50, 100);
     this->gameOver = new GameOver(50, 100);
     this->won = new Won(50, 100);
@@ -83,7 +83,7 @@ Model::~Model() {
     delete mario;
     delete splashScreen;
     if(goomba != NULL){ delete goomba; }
-    delete flyTh1;
+    delete flyingThing;
     delete gameOver;
     delete won;
 }

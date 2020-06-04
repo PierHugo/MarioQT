@@ -275,6 +275,12 @@ void GameBoard::movementMario()
             gameWon();
         }
 
+        if(model->getFlyingThing()->getRect().intersects(model->getMario()->getRect()))
+        {
+            qDebug() << "Kill by the FLyingThing, SHAME again.";
+            gameOver();
+        }
+
         //mourir si on touche les piques
         //FIXME : juste le premier est pris en compte
         if(!model->getSpikes()->empty() && model->getSpikes()->constBegin().value()->getRect().intersects(model->getMario()->getRect()))
@@ -441,6 +447,7 @@ void GameBoard::movementMario()
 void GameBoard::movementMapRight()
 {
     movementGoomba();
+    movementFlyingThing();
     int x0=0;
     int y0=0;
 
@@ -652,6 +659,10 @@ void GameBoard::generateMap()
     Goomba *g2 = new Goomba(551, 415);
     model->setGoomba(g2);
 
+    // Generate FlyingThing
+    FlyingThing *ft1 = new FlyingThing(1250, 400);
+    model->setFlyingThing(ft1);
+
 
     int x0=800;
     int y0=250;
@@ -712,7 +723,7 @@ void GameBoard::movementGoomba(){
     {
         int y=model->getGoomba()->getRect().y();
         int x=model->getGoomba()->getRect().x();
-        model->getGoomba()->move(x-1, y);
+        model->getGoomba()->move(x-1.25, y);
     }
     else
     {
@@ -724,5 +735,5 @@ void GameBoard::movementFlyingThing(){
     int x=model->getFlyingThing()->getRect().x();
     int y=model->getFlyingThing()->getRect().y();
 
-    model->getFlyingThing()->move(x-1, y);
+    model->getFlyingThing()->move(x-1.25, y);
 }

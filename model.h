@@ -27,7 +27,7 @@ public:
     ~Model();
     inline Mario *getMario(){ return mario; }
     inline Goomba *getGoomba(){ return goomba; }
-    inline FlyingThing *getFlyingThing(){ return flyTh1; }
+    inline FlyingThing *getFlyingThing(){ return flyingThing; }
 
     SplashScreen *getSplashScreen(){ return splashScreen; }
     GameOver *getGameOver(){ return gameOver; }
@@ -52,12 +52,13 @@ public:
     inline void setBackgroundCount(){ this->backgroundCount++; }
     inline void setMario(Mario *mario){ this->mario = mario; }
     inline void setGoomba(Goomba *goomba){ this->goomba = goomba; }
-    inline void setFlyingThing(FlyingThing *flyTh) { this->flyTh1 = flyTh; }
+    inline void setFlyingThing(FlyingThing *flyingThing) { this->flyingThing = flyingThing; }
     inline void setQuestions(QMap<int,Question*> *questions){ this->questions = questions; }
     inline void setBricks(QMap<int,Brick*> *bricks){ this->bricks= bricks; }
     inline void setFloors(QMap<int,Floor*> *floors){ this->floors = floors; }
     int const blockSize = 50;
     void deleteGoomba() { delete this->goomba; }
+    void deleteFlyingThing() { delete this->flyingThing; }
 
 private:
     QMap<int, Question*> *questions;
@@ -67,7 +68,7 @@ private:
     QMap<int, Flag*> *flags;
     Mario *mario;
     Goomba *goomba;
-    FlyingThing *flyTh1;
+    FlyingThing *flyingThing;
 
 
     SplashScreen *splashScreen;
