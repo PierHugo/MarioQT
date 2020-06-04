@@ -23,12 +23,17 @@ SOURCES += main.cpp \
     flag.cpp \
     gameboard.cpp \
     floor.cpp \
+    goomba.cpp \
+    gameover.cpp \
     mario.cpp \
+    monster.cpp \
     person.cpp \
     model.cpp \
     question.cpp \
+    spike.cpp \
     splashscreen.cpp \
-    background.cpp
+    background.cpp \
+    won.cpp
 
 HEADERS  += gameboard.h \
     block.h \
@@ -36,11 +41,16 @@ HEADERS  += gameboard.h \
     castle.h \
     flag.h \
     floor.h \
+    goomba.h \
+    gameover.h \
     mario.h \
+    monster.h \
     person.h \
     model.h \
     question.h \
+    spike.h \
     splashscreen.h \
-    background.h
+    background.h \
+    won.h
 
 DISTFILES +=
