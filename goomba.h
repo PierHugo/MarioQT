@@ -1,10 +1,10 @@
 #ifndef GOOMBA_H
 #define GOOMBA_H
 
-#include "person.h"
+#include "monster.h"
 
 
-class Goomba  : public Person
+class Goomba  : public Monster
 {
 public:
     Goomba(int, int);

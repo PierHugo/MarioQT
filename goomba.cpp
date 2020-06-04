@@ -1,11 +1,12 @@
 #include "goomba.h"
 #include <iostream>
 
-Goomba::Goomba(int x, int y) : Person(x, y)
+Goomba::Goomba(int x, int y) : Monster(x, y)
 {
     //this->setLife(1);
-    this->moveRSprite = QPixmap(":images/goomba_right.png");
-    this->rect = QRect(x, y, 50, moveRSprite.size().height());
+
+    this->moveLSprite = QPixmap(":images/goomba.png");
+    this->rect = QRect(x, y, 50, moveLSprite.size().height());
 }
 
 Goomba::~Goomba()
