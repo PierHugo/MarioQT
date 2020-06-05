@@ -29,5 +29,10 @@ Le but du jeu est d'arriver à la fin du niveau en évitant les ennemis et les o
 
 * Le Goomba ailé va toujours vers la gauche, si Mario le touche, la partie est perdue.
 
+## Images du jeu
+![image](https://user-images.githubusercontent.com/22833992/83888570-52652400-a74a-11ea-9f73-c3fce5fd56a2.png)
+![image](https://user-images.githubusercontent.com/22833992/83889045-f3ec7580-a74a-11ea-837a-3e9afa0bbb0e.png)
+![image](https://user-images.githubusercontent.com/22833992/83888754-8fc9b180-a74a-11ea-85a0-1c11d674b977.png)
+
 # Étudiants
 Corentin BOURDON, Pier-Hugo CARPENTIER, Lucas DOS SANTOS, Erwann PIEDLOUP
